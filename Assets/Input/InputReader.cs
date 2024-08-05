@@ -12,7 +12,7 @@ namespace Input
         private PlayerControls controls;
 
         public Action<float> TurnEvent;
-        public Action<bool> AccelerateEvent;
+        public Action<float> AccelerateEvent;
         public Action<bool> FireEvent;
         
         private void OnEnable()
@@ -33,14 +33,7 @@ namespace Input
 
         public void OnAccelerate(InputAction.CallbackContext context)
         {
-            if (context.performed)
-            {
-                AccelerateEvent?.Invoke(true);
-            }
-            else if (context.canceled)
-            {
-                AccelerateEvent?.Invoke(false);
-            }
+            AccelerateEvent?.Invoke(context.ReadValue<float>());
         }
 
         public void OnFire(InputAction.CallbackContext context)
