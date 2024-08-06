@@ -9,18 +9,22 @@ namespace Core.Player
     {
         [Header("References")] 
         [SerializeField] private InputReader inputReader;
-
         [SerializeField] private Rigidbody sphereRb;
+        [SerializeField] private Transform groundRayPoint;
+        [SerializeField] private LayerMask groundMask;
 
         [Header("Settings")] 
         [SerializeField] private float turnSpeed = 180f;
         [SerializeField] private float forwardAccel = 8f;
         [SerializeField] private float reverseAccel = 4f;
         [SerializeField] private float maxSpeed = 50f;
+        [SerializeField] private float gravityForce = 10f;
+        [SerializeField] private float groundDrag = 3f;
 
         private float _accelInput;
         private float _turnInput;
         private float _speed;
+        private bool isGrounded;
         
         public override void OnNetworkSpawn()
         {
@@ -51,7 +55,7 @@ namespace Core.Player
         void Update()
         {
             transform.position = sphereRb.transform.position;
-            
+
             if (!IsOwner)
             {
                 return;
@@ -68,14 +72,30 @@ namespace Core.Player
         }
         private void FixedUpdate()
         {
+            isGrounded = Physics.Raycast(groundRayPoint.position, -transform.up, out RaycastHit hit ,1f, groundMask);
+
+            if (isGrounded)
+            {
+                transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+            }
+            
             if (!IsOwner)
             {
                 return;
             }
 
-            if (Mathf.Abs(_accelInput) > 0)
+            if (isGrounded)
             {
-                sphereRb.AddForce(_speed * transform.forward);
+                sphereRb.drag = groundDrag;
+                if (Mathf.Abs(_accelInput) > 0 && sphereRb.velocity.magnitude <= maxSpeed)
+                {
+                    sphereRb.AddForce(_speed * transform.forward);
+                }
+            }
+            else
+            {
+                sphereRb.drag = 0.1f;
+                sphereRb.AddForce(Vector3.down * (gravityForce * 100f));
             }
         }
 
