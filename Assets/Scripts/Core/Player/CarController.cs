@@ -26,6 +26,7 @@ namespace Core.Player
         private float _speed;
         private bool isGrounded;
         
+        
         public override void OnNetworkSpawn()
         {
             if (!IsOwner)
@@ -76,7 +77,8 @@ namespace Core.Player
 
             if (isGrounded)
             {
-                transform.rotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+                Quaternion newRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
+                transform.rotation = Quaternion.Lerp(transform.rotation,newRotation,0.1f);
             }
             
             if (!IsOwner)
@@ -93,7 +95,7 @@ namespace Core.Player
                 }
             }
             else
-            {
+            { 
                 sphereRb.drag = 0.1f;
                 sphereRb.AddForce(Vector3.down * (gravityForce * 100f));
             }

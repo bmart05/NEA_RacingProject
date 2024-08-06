@@ -9,8 +9,8 @@ namespace Core.Player
         [Header("References")]
         [SerializeField] private CinemachineVirtualCamera carCamera;
 
-        [Header("Settings")] [SerializeField] private int ownerCamPriority = 20;
-        
+        [Header("Settings")] 
+        [SerializeField] private int ownerCamPriority = 20;
         
         public override void OnNetworkSpawn()
         {
