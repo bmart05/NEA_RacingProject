@@ -46,6 +46,8 @@ namespace Core.Player
             {
                 return;
             }
+            inputReader.AccelerateEvent -= HandleAccelerate;
+            inputReader.TurnEvent -= HandleTurn;
         }
 
         private void Start()
@@ -73,6 +75,7 @@ namespace Core.Player
         }
         private void FixedUpdate()
         {
+            
             isGrounded = Physics.Raycast(groundRayPoint.position, -transform.up, out RaycastHit hit ,1f, groundMask);
 
             if (isGrounded)
@@ -85,6 +88,8 @@ namespace Core.Player
             {
                 return;
             }
+            
+            Debug.DrawLine(groundRayPoint.position,hit.point);
 
             if (isGrounded)
             {

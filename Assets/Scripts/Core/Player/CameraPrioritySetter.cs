@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Core.Player
 {
-    public class CarPlayer : NetworkBehaviour
+    public class CameraPrioritySetter : NetworkBehaviour
     {
         [Header("References")]
         [SerializeField] private CinemachineVirtualCamera carCamera;
