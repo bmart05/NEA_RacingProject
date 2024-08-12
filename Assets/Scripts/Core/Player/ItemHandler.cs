@@ -1,6 +1,7 @@
 ﻿using System;
 using Core.Items;
 using Input;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -10,13 +11,18 @@ namespace Core.Player
     {
         [Header("References")] 
         [SerializeField] private InputReader inputReader;
-        
+        [SerializeField] private CarController carController;
 
+        [Header("Settings")] 
+        [SerializeField] private float boostStrength = 1.5f;
+        [SerializeField] private float boostTime = 3f;
+        
+        [Header("Debug")]
         [SerializeField] private bool canPickup = true;
         [SerializeField] private int remainingUses = 0;
-        private bool _shouldFire;
         [SerializeField] private Item currentItem;
         
+        private bool _shouldFire;
 
 
         public override void OnNetworkSpawn()
@@ -28,6 +34,8 @@ namespace Core.Player
             inputReader.FireEvent += HandleFire;
         }
 
+        
+
         public override void OnNetworkDespawn()
         {
             if (!IsOwner)
@@ -35,6 +43,7 @@ namespace Core.Player
                 return;
             }
             inputReader.FireEvent -= HandleFire;
+            
         }
 
         private void Update()
@@ -56,8 +65,9 @@ namespace Core.Player
 
             if (remainingUses <= 0)
             {
-                currentItem = null;
                 canPickup = true;
+                currentItem = null;
+                ItemUI.Instance.UpdateUI(null);
                 return;
             }
 
@@ -66,9 +76,9 @@ namespace Core.Player
                 //handle projectile code
             }
 
-            if (currentItem.HasTag("Booster"))
+            if (currentItem.HasTag("Boost"))
             {
-                //handle booster code
+                StartCoroutine(carController.Boost(boostStrength, boostTime));
             }
 
             remainingUses--;
@@ -76,6 +86,11 @@ namespace Core.Player
 
         public void HandlePickup()
         {
+            if (!IsOwner)
+            {
+                return;
+            }
+            
             if (!canPickup)
             {
                 return;
@@ -84,6 +99,7 @@ namespace Core.Player
 
 
             currentItem = GlobalItems.Instance.GetRandomItem();
+            ItemUI.Instance.UpdateUI(currentItem);
             remainingUses = currentItem.maxUses;
         }
         
@@ -91,5 +107,6 @@ namespace Core.Player
         {
             _shouldFire = shouldFire;
         }
+        
     }
 }

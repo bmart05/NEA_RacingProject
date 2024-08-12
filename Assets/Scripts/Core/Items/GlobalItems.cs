@@ -29,6 +29,11 @@ namespace Core.Items
         
         public List<Item> items = new List<Item>();
 
+        public Item GetItemByName(string itemName)
+        {
+            return items.Find(i => i.name == itemName);
+        }
+        
         public Item GetRandomItem()
         {
             return items.PickRandom();

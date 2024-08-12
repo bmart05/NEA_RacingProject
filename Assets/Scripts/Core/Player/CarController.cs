@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Input;
 using Unity.Netcode;
 using UnityEngine;
@@ -57,12 +59,12 @@ namespace Core.Player
 
         void Update()
         {
-            transform.position = sphereRb.transform.position;
 
             if (!IsOwner)
             {
                 return;
             }
+            transform.position = sphereRb.transform.position;
             if (_accelInput > 0)
             {
                 _speed = _accelInput * forwardAccel * 1000f;
@@ -106,6 +108,13 @@ namespace Core.Player
             }
         }
 
+        public IEnumerator Boost(float boostStrength, float boostTime)
+        {
+            forwardAccel = forwardAccel * boostStrength;
+            yield return new WaitForSeconds(boostTime);
+            forwardAccel = forwardAccel / boostStrength;
+        }
+        
         private void HandleTurn(float turnInput)
         {
             _turnInput = turnInput;
@@ -115,5 +124,6 @@ namespace Core.Player
         {
             _accelInput = accelInput;
         }
+
     }
 }

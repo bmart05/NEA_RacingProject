@@ -1,12 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace Core.Items
 {
     [CreateAssetMenu(menuName = "New Item", fileName = "New Item")]
+    [Serializable]
     public class Item : ScriptableObject
     {
         public string name;
+        public Sprite itemImage;
         public int maxUses;
         public List<Tag> tags = new List<Tag>();
 

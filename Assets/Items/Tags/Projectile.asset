@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79f411ce073e4e2daf26e5769861fa62, type: 3}
   m_Name: Projectile
   m_EditorClassIdentifier: 
-  name: 
+  name: Projectile
