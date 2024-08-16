@@ -107,12 +107,29 @@ namespace Core.Player
                 sphereRb.AddForce(Vector3.down * (gravityForce * 100f));
             }
         }
+        
+        [ServerRpc]
+        public void HandleBoostServerRpc(float boostStrength, float boostTime) 
+        {
+            //must be sent to server first so server can ping all clients
+            //note docs: https://docs-multiplayer.unity3d.com/netcode/current/advanced-topics/message-system/rpc/
+            HandleBoostClientRpc(boostStrength,boostTime);
+        }
 
+        [ClientRpc]
+        private void HandleBoostClientRpc(float boostStrength, float boostTime)
+        {
+            StartCoroutine(Boost(boostStrength, boostTime));
+        }
+        
         public IEnumerator Boost(float boostStrength, float boostTime)
         {
+            //TODO: Add boost particle
+            Debug.Log($"Boost started for {OwnerClientId}");
             forwardAccel = forwardAccel * boostStrength;
             yield return new WaitForSeconds(boostTime);
             forwardAccel = forwardAccel / boostStrength;
+            Debug.Log("Boost ended");
         }
         
         private void HandleTurn(float turnInput)

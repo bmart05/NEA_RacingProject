@@ -78,11 +78,13 @@ namespace Core.Player
 
             if (currentItem.HasTag("Boost"))
             {
-                StartCoroutine(carController.Boost(boostStrength, boostTime));
+                carController.HandleBoostServerRpc(boostStrength,boostTime);
             }
 
             remainingUses--;
         }
+        
+        
 
         public void HandlePickup()
         {
