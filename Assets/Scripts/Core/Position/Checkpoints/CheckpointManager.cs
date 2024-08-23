@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Core.Player;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -6,6 +8,27 @@ namespace Core.Position.Checkpoints
 {
     public class CheckpointManager : NetworkBehaviour
     {
+        private static CheckpointManager _instance;
+
+        public static CheckpointManager Instance
+        {
+            get
+            {
+                if (_instance != null)
+                {
+                    return _instance;
+                }
+
+                _instance = FindObjectOfType<CheckpointManager>();
+                if (_instance == null)
+                {
+                    return null;
+                }
+
+                return _instance;
+            }
+        }
+        
         [SerializeField] private List<Checkpoint> checkpoints = new List<Checkpoint>();
 
         public override void OnNetworkSpawn()
@@ -21,16 +44,16 @@ namespace Core.Position.Checkpoints
             return checkpoints[index].transform.position;
         }
 
-        public void ActivateCheckpoint(Checkpoint checkpoint,RacePosition position)
+        public void ActivateCheckpoint(Checkpoint checkpoint,CarPlayer player)
         {
-            if (position.checkpointNumber < checkpoint.Index)
+            if ((checkpoint.Index-player.position.checkpointNumber)<=1)//if the checkpoint is the next checkpoint or a previous one
             {
-                position.checkpointNumber = checkpoint.Index;
+                player.position.checkpointNumber = checkpoint.Index;
                 Debug.Log($"Activated checkpoint {checkpoint.Index}");
             }
             else
             {
-                Debug.Log("Already activated this!");
+                Debug.Log("Stop trying to skip the track!");
             }
         }
     }

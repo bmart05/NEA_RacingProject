@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Player;
+using Core.Position.Checkpoints;
 using Unity.Netcode;
+using UnityEngine;
 
 namespace Core.Position
 {
@@ -31,17 +33,62 @@ namespace Core.Position
         public List<CarPlayer> playerObjects;
         public int NumLaps { get; private set; } = 3;
 
-        public void InitalizePlayer(CarPlayer player)
+        private void Update()
+        {
+            SortPositions();
+        }
+
+        public void InitializePlayer(CarPlayer player)
         {
             playerObjects.Add(player);
         } 
 
-        public void SortPositions() //calling this every frame could be expensive  
+        public void SortPositions() //really expensive function, need to optimise
         {
-            //sort by lap number
-            //sort by checkpoint number
-            //sort by distance to next checkpoint
-            return 0;
+            for (int i = 0; i < playerObjects.Count-1; i++)
+            {
+                bool swapped = false;
+                
+                for (int j = 0; j < playerObjects.Count-i-1; j++)
+                {
+                    CarPlayer player = playerObjects[j];
+                    CarPlayer otherPlayer = playerObjects[j+1];
+                    if (otherPlayer.position.lapNumber > player.position.lapNumber)
+                    {
+                        swapped = true;
+                    }
+                    else if (otherPlayer.position.checkpointNumber > player.position.checkpointNumber)
+                    {
+                        swapped = true;
+                    }
+                    else if (otherPlayer.position.checkpointNumber == player.position.checkpointNumber)
+                    {
+                        Vector3 nextCheckpointPosition =
+                            CheckpointManager.Instance.GetCheckpointPosition(player.position.checkpointNumber + 1);
+                        float playerDistance =
+                            Vector3.Distance(nextCheckpointPosition,
+                                player.transform.position);
+                        float otherPlayerDistance =
+                            Vector3.Distance(nextCheckpointPosition,
+                                otherPlayer.transform.position);
+                        if (otherPlayerDistance > playerDistance)
+                        {
+                            swapped = true;
+                        }
+                    }
+
+                    if (swapped)
+                    {
+                        playerObjects[j] = otherPlayer;
+                        playerObjects[j+1] = player;
+                    }
+                }
+
+                if (!swapped)
+                {
+                    return;
+                }
+            }
         }
 
         public int GetPosition(CarPlayer player)

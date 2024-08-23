@@ -6,7 +6,6 @@ namespace Core.Position.Checkpoints
 {
     public class Checkpoint : MonoBehaviour
     {
-        private CheckpointManager _checkpointManager;
         public int Index { get; private set; }
         
         public void Initialize(int index)
@@ -18,7 +17,7 @@ namespace Core.Position.Checkpoints
         {
             if (other.TryGetComponent(out CarPlayer player))
             {
-                _checkpointManager.ActivateCheckpoint(this,player.Position);
+                CheckpointManager.Instance.ActivateCheckpoint(this,player);
             }
         }
     }
