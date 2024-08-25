@@ -35,7 +35,7 @@ namespace Core.Position.Checkpoints
         {
             for (int i = 0; i < checkpoints.Count; i++)
             {
-                checkpoints[i].Initialize(i);
+                checkpoints[i].Initialize(i+1);
             }
         }
 

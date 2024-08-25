@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Player;
 using Core.Position.Checkpoints;
 using Unity.Netcode;
@@ -32,6 +33,10 @@ namespace Core.Position
 
         public List<CarPlayer> playerObjects;
         public int NumLaps { get; private set; } = 3;
+        
+        [SerializeField] private Material lapSwapMat;
+        [SerializeField] private Material checkpointSwapMat;
+        [SerializeField] private Material distanceSwapMat;
 
         private void Update()
         {
@@ -41,59 +46,24 @@ namespace Core.Position
         public void InitializePlayer(CarPlayer player)
         {
             playerObjects.Add(player);
+            player.position.lapNumber = 0;
+            player.position.checkpointNumber = 0;
         } 
 
-        public void SortPositions() //really expensive function, need to optimise
+        private void SortPositions()
         {
-            for (int i = 0; i < playerObjects.Count-1; i++)
-            {
-                bool swapped = false;
-                
-                for (int j = 0; j < playerObjects.Count-i-1; j++)
-                {
-                    CarPlayer player = playerObjects[j];
-                    CarPlayer otherPlayer = playerObjects[j+1];
-                    if (otherPlayer.position.lapNumber > player.position.lapNumber)
-                    {
-                        swapped = true;
-                    }
-                    else if (otherPlayer.position.checkpointNumber > player.position.checkpointNumber)
-                    {
-                        swapped = true;
-                    }
-                    else if (otherPlayer.position.checkpointNumber == player.position.checkpointNumber)
-                    {
-                        Vector3 nextCheckpointPosition =
-                            CheckpointManager.Instance.GetCheckpointPosition(player.position.checkpointNumber + 1);
-                        float playerDistance =
-                            Vector3.Distance(nextCheckpointPosition,
-                                player.transform.position);
-                        float otherPlayerDistance =
-                            Vector3.Distance(nextCheckpointPosition,
-                                otherPlayer.transform.position);
-                        if (otherPlayerDistance > playerDistance)
-                        {
-                            swapped = true;
-                        }
-                    }
+            playerObjects = playerObjects
+                .OrderBy(p => p.position.lapNumber)
+                .ThenBy(p => p.position.checkpointNumber)
+                .ThenByDescending(p => Vector3.Distance(
+                    CheckpointManager.Instance.GetCheckpointPosition(p.position.checkpointNumber+1),
+                    p.transform.position)).ToList();
 
-                    if (swapped)
-                    {
-                        playerObjects[j] = otherPlayer;
-                        playerObjects[j+1] = player;
-                    }
-                }
-
-                if (!swapped)
-                {
-                    return;
-                }
-            }
         }
 
         public int GetPosition(CarPlayer player)
         {
-            return playerObjects.FindIndex(x => x==player);
+            return playerObjects.Count - playerObjects.FindIndex(x => x==player);
         }
     }
     

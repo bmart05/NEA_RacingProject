@@ -229,11 +229,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carCamera: {fileID: 410078351245014696}
+  carModelRenderer: {fileID: 5808703461474062780}
+  ownerCamPriority: 20
   position:
     racePosition: 0
     lapNumber: 0
     checkpointNumber: 0
-  ownerCamPriority: 20
 --- !u!114 &4577345298855134594
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,7 +450,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6453990406193592014}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14521313, y: 0.00000003296683, z: -0.000000004838502, w: 0.98940045}
+  m_LocalRotation: {x: 0.14521313, y: 0.000000032966824, z: -0.000000004838501, w: 0.98940045}
   m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

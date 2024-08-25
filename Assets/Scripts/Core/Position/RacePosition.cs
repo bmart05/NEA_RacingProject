@@ -8,5 +8,6 @@ namespace Core.Position
         public int racePosition;
         public int lapNumber;
         public int checkpointNumber;
+        public float distanceToCheckpoint;
     }
 }
