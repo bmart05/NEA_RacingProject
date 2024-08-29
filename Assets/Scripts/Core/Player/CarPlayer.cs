@@ -42,7 +42,7 @@ namespace Core.Player
             }
         }
 
-        [ServerRpc]
+        [ServerRpc(RequireOwnership = false)]
         public void StunPlayerServerRpc()
         {
             //doesn't need to run on server right now

@@ -5,6 +5,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
+using Utilities;
 
 namespace Core.Player
 {
@@ -13,6 +14,7 @@ namespace Core.Player
         [Header("References")] 
         [SerializeField] private InputReader inputReader;
         [SerializeField] private CarController carController;
+        [SerializeField] private Transform itemSpawnPosition;
         
         [Header("Debug")]
         [SerializeField] private bool canPickup = true;
@@ -96,8 +98,8 @@ namespace Core.Player
             GameObject serverProjectile = tag.serverGameObject;
             float projectileSpeed = tag.value1;
             
-            GameObject projectile = Instantiate(serverProjectile, transform.position, transform.rotation);
-
+            GameObject projectile = Instantiate(serverProjectile, itemSpawnPosition.position, transform.rotation);
+            
             if (projectile.TryGetComponent(out Rigidbody rb))
             {
                 rb.velocity = projectile.transform.forward * projectileSpeed;
@@ -120,7 +122,7 @@ namespace Core.Player
 
         private void SpawnDummyProjectile(GameObject dummyProjectile, float projectileSpeed)
         {
-            GameObject projectile = Instantiate(dummyProjectile, transform.position, transform.rotation);
+            GameObject projectile = Instantiate(dummyProjectile, itemSpawnPosition.position, transform.rotation);
 
             if (projectile.TryGetComponent(out Rigidbody rb))
             {

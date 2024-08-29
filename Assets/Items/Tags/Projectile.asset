@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Projectile
   m_EditorClassIdentifier: 
   name: Projectile
-  value1: 100
+  value1: 50
   value2: 0
   clientGameObject: {fileID: 5688760946486523035, guid: 224a6ba5edd367143989743db8db6f2e,
     type: 3}
