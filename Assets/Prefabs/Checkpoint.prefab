@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eb4b507ff52e40f58f68c2065e32636, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manageVisibility: 0
+  manageVisibility: 1
 --- !u!114 &1049048839830569416
 MonoBehaviour:
   m_ObjectHideFlags: 0

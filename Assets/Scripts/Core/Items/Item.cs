@@ -18,6 +18,20 @@ namespace Core.Items
         {
             return tags.Exists(t => t.name == tagName);
         }
+        
+        public bool HasTag(string tagName, out Tag tag)
+        {
+            tag = null;
+            foreach (var t in tags)
+            {
+                if (t.name == tagName)
+                {
+                    tag = t;
+                }
+            }
+
+            return (tag != null);
+        }
         public bool HasTag(Tag tag)
         {
             return tags.Contains(tag);

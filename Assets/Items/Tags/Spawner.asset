@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79f411ce073e4e2daf26e5769861fa62, type: 3}
-  m_Name: Boost
+  m_Name: Spawner
   m_EditorClassIdentifier: 
-  name: Boost
-  value1: 1.5
-  value2: 3
+  name: Spawner
+  value1: 0
+  value2: 0
   clientGameObject: {fileID: 0}
   serverGameObject: {fileID: 0}

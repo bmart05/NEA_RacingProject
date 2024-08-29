@@ -508,6 +508,11 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 573189125}
+    - target: {fileID: 5696973327262781469, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: manageVisibility
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6147456660935459833, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -572,6 +577,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7903471838977439711, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1870,7 +1880,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14521313, y: 0.00000003296683, z: -0.000000004838502, w: 0.98940045}
+  m_LocalRotation: {x: 0.14521313, y: 0.000000032966824, z: -0.000000004838501, w: 0.98940045}
   m_LocalPosition: {x: 0, y: 4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9055,7 +9065,7 @@ Transform:
   m_GameObject: {fileID: 1989896572}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 40.75, y: -1.5, z: 12.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10004,6 +10014,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5579617981398462444, guid: 013e8ac9442970c48ba04767c34d1896,
+        type: 3}
+      propertyPath: items.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5579617981398462444, guid: 013e8ac9442970c48ba04767c34d1896,
+        type: 3}
+      propertyPath: items.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: cd84f43c93ec07d459e13ac0a2dff852,
+        type: 2}
     - target: {fileID: 6910394368811500977, guid: 013e8ac9442970c48ba04767c34d1896,
         type: 3}
       propertyPath: m_Name

@@ -6,12 +6,12 @@ namespace Core.Items
 {
     [Serializable]
     [CreateAssetMenu(menuName = "New Tag", fileName = "New Tag")]
-    public class Tag : ScriptableObject, INetworkSerializable
+    public class Tag : ScriptableObject
     {
         public string name;
-        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter
-        {
-            serializer.SerializeValue(ref name);
-        }
+        public float value1;
+        public float value2;
+        public GameObject clientGameObject;
+        public GameObject serverGameObject;
     }
 }
