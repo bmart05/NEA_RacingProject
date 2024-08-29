@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections;
 using Cinemachine;
 using Core.Position;
 using Core.Position.Checkpoints;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -12,11 +14,12 @@ namespace Core.Player
     {
         [Header("References")]
         [SerializeField] private CinemachineVirtualCamera carCamera;
-
-        [SerializeField] private Renderer carModelRenderer;
+        [SerializeField] private CarController carController;
+        [SerializeField] private Animator carModelAnimator;
 
         [Header("Settings")] 
         [SerializeField] private int ownerCamPriority = 20;
+        [SerializeField] private float stunTime = 1.5f;
         
         
         public RacePosition position;
@@ -37,6 +40,27 @@ namespace Core.Player
                 position.racePosition = RaceManager.Instance.GetPosition(this);
                 RaceUI.Instance.UpdateText(position.racePosition);
             }
+        }
+
+        [ServerRpc]
+        public void StunPlayerServerRpc()
+        {
+            //doesn't need to run on server right now
+            StunPlayerClientRpc();
+        }
+        [ClientRpc]
+        public void StunPlayerClientRpc()
+        {
+            StartCoroutine(StunPlayer());
+        }
+
+        private IEnumerator StunPlayer()
+        {
+            carController.SetCanMove(false);
+            carModelAnimator.SetBool("isStunned", true);
+            yield return new WaitForSeconds(stunTime);
+            carModelAnimator.SetBool("isStunned", false);
+            carController.SetCanMove(true);
         }
     }
 }

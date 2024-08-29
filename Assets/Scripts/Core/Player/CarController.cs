@@ -26,7 +26,8 @@ namespace Core.Player
         private float _accelInput;
         private float _turnInput;
         private float _speed;
-        private bool isGrounded;
+        private bool _isGrounded;
+        private bool _canMove = true;
         
         
         public override void OnNetworkSpawn()
@@ -59,7 +60,14 @@ namespace Core.Player
 
         void Update()
         {
-
+            if (!_canMove)
+            {
+                _accelInput = 0;
+                _turnInput = 0;
+                sphereRb.velocity = Vector3.zero;
+                return;
+            }
+            
             if (!IsOwner)
             {
                 return;
@@ -78,9 +86,9 @@ namespace Core.Player
         private void FixedUpdate()
         {
             
-            isGrounded = Physics.Raycast(groundRayPoint.position, -transform.up, out RaycastHit hit ,1f, groundMask);
+            _isGrounded = Physics.Raycast(groundRayPoint.position, -transform.up, out RaycastHit hit ,1f, groundMask);
 
-            if (isGrounded)
+            if (_isGrounded)
             {
                 Quaternion newRotation = Quaternion.FromToRotation(transform.up, hit.normal) * transform.rotation;
                 transform.rotation = Quaternion.Lerp(transform.rotation,newRotation,0.1f);
@@ -93,7 +101,7 @@ namespace Core.Player
             
             Debug.DrawLine(groundRayPoint.position,hit.point);
 
-            if (isGrounded)
+            if (_isGrounded)
             {
                 sphereRb.drag = groundDrag;
                 if (Mathf.Abs(_accelInput) > 0 && sphereRb.velocity.magnitude <= maxSpeed)
@@ -106,6 +114,11 @@ namespace Core.Player
                 sphereRb.drag = 0.1f;
                 sphereRb.AddForce(Vector3.down * (gravityForce * 100f));
             }
+        }
+
+        public void SetCanMove(bool newCanMove)
+        {
+            _canMove = newCanMove;
         }
         
         [ServerRpc]

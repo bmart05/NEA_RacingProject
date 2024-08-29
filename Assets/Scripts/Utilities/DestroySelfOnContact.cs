@@ -5,7 +5,7 @@ namespace Utils
 {
     public class DestroySelfOnContact : MonoBehaviour
     {
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter(Collider other)
         {
             Destroy(gameObject);
         }
