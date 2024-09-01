@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Utils
+namespace Utilities
 {
     public class DestroySelfOnContact : MonoBehaviour
     {

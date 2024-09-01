@@ -5,6 +5,7 @@ using Unity.Collections;
 using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities;
 
 namespace Core.Player
@@ -14,7 +15,8 @@ namespace Core.Player
         [Header("References")] 
         [SerializeField] private InputReader inputReader;
         [SerializeField] private CarController carController;
-        [SerializeField] private Transform itemSpawnPosition;
+        [SerializeField] private Transform frontItemSpawnPosition;
+        [SerializeField] private Transform backItemSpawnPosition;
         
         [Header("Debug")]
         [SerializeField] private bool canPickup = true;
@@ -73,13 +75,16 @@ namespace Core.Player
 
             Tag itemTag = null;
             
-            if (currentItem.HasTag("Spawner"))
+            if (currentItem.HasTag("Projectile", out itemTag))
             {
-                if (currentItem.HasTag("Projectile", out itemTag))
-                {
-                    SpawnDummyProjectile(itemTag.clientGameObject,itemTag.value1);
-                    HandleProjectileServerRpc();
-                }     
+                SpawnDummyProjectile(itemTag.clientGameObject,itemTag.value1);
+                HandleProjectileServerRpc();
+            } 
+            
+            if (currentItem.HasTag("Obstacle", out itemTag))
+            {
+                SpawnObstacle();
+                SpawnObstacleServerRpc();
             }
 
             if (currentItem.HasTag("Boost", out itemTag))
@@ -98,7 +103,7 @@ namespace Core.Player
             GameObject serverProjectile = tag.serverGameObject;
             float projectileSpeed = tag.value1;
             
-            GameObject projectile = Instantiate(serverProjectile, itemSpawnPosition.position, transform.rotation);
+            GameObject projectile = Instantiate(serverProjectile, frontItemSpawnPosition.position, transform.rotation);
             
             if (projectile.TryGetComponent(out Rigidbody rb))
             {
@@ -122,13 +127,42 @@ namespace Core.Player
 
         private void SpawnDummyProjectile(GameObject dummyProjectile, float projectileSpeed)
         {
-            GameObject projectile = Instantiate(dummyProjectile, itemSpawnPosition.position, transform.rotation);
+            GameObject projectile = Instantiate(dummyProjectile, frontItemSpawnPosition.position, transform.rotation);
 
             if (projectile.TryGetComponent(out Rigidbody rb))
             {
                 rb.velocity = projectile.transform.forward * projectileSpeed;
             }
         }
+
+        [ServerRpc]
+        private void SpawnObstacleServerRpc()
+        {
+            Tag tag = ParseTagFromItem(currentItem, "Obstacle");
+            GameObject obstaclePrefab = tag.serverGameObject;
+            
+            Instantiate(obstaclePrefab,backItemSpawnPosition.position,quaternion.identity);
+            
+            SpawnObstacleClientRpc();
+        }
+        [ClientRpc]
+        private void SpawnObstacleClientRpc()
+        {
+            if (IsOwner)
+            {
+                return;
+            }
+            SpawnObstacle();
+        }
+
+        private void SpawnObstacle()
+        {
+            Tag tag = ParseTagFromItem(currentItem, "Obstacle");
+            GameObject obstaclePrefab = tag.clientGameObject;
+            
+            Instantiate(obstaclePrefab,backItemSpawnPosition.position,quaternion.identity);
+        }
+ 
 
         private Tag ParseTagFromItem(Item item,string tagName)
         {

@@ -38,6 +38,7 @@ namespace Input
 
         public void OnFire(InputAction.CallbackContext context)
         {
+            
             if (context.performed)
             {
                 FireEvent?.Invoke(true);
@@ -46,6 +47,7 @@ namespace Input
             {
                 FireEvent?.Invoke(false);
             }
+            
         }
     }
 }

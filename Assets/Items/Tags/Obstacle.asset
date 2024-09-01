@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79f411ce073e4e2daf26e5769861fa62, type: 3}
+  m_Name: Obstacle
+  m_EditorClassIdentifier: 
+  name: Obstacle
+  value1: 0
+  value2: 0
+  clientGameObject: {fileID: 3680285694157224597, guid: f90c41859d04bae41895b8027fbbca6e,
+    type: 3}
+  serverGameObject: {fileID: 3680285694157224597, guid: 32787883d6db1f8488c4dd42b26cb09d,
+    type: 3}
