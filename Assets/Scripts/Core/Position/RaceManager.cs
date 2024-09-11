@@ -34,9 +34,6 @@ namespace Core.Position
         public List<CarPlayer> playerObjects;
         public int NumLaps { get; private set; } = 3;
         
-        [SerializeField] private Material lapSwapMat;
-        [SerializeField] private Material checkpointSwapMat;
-        [SerializeField] private Material distanceSwapMat;
 
         private void Update()
         {

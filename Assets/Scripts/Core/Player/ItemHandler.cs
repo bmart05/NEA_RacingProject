@@ -17,6 +17,7 @@ namespace Core.Player
         [SerializeField] private CarController carController;
         [SerializeField] private Transform frontItemSpawnPosition;
         [SerializeField] private Transform backItemSpawnPosition;
+        [SerializeField] private float fireRate = 1f;
         
         [Header("Debug")]
         [SerializeField] private bool canPickup = true;
@@ -24,6 +25,7 @@ namespace Core.Player
         [SerializeField] private Item currentItem;
         
         private bool _shouldFire;
+        private float previousFireTime;
 
 
         public override void OnNetworkSpawn()
@@ -72,6 +74,13 @@ namespace Core.Player
                 SynchronisePickupServerRpc(null);
                 return;
             }
+            
+            //thanks to dapper dino - udemy tutorial
+            if (Time.time < (1 / fireRate) + previousFireTime)
+            {
+                return;
+            }
+
 
             Tag itemTag = null;
             
@@ -93,6 +102,7 @@ namespace Core.Player
             }
 
             remainingUses--;
+            previousFireTime = Time.time;
         }
 
         [ServerRpc]
@@ -228,6 +238,5 @@ namespace Core.Player
         {
             _shouldFire = shouldFire;
         }
-        
     }
 }

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1022881830427597769}
   - component: {fileID: 4647277517339934260}
   - component: {fileID: 510105540280293809}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BoostPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -424,7 +424,7 @@ GameObject:
   - component: {fileID: 2236664318045502760}
   - component: {fileID: 1598639671438094195}
   - component: {fileID: 7348775821359375558}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

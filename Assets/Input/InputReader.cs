@@ -23,7 +23,7 @@ namespace Input
                 controls.Player.SetCallbacks(this);
             }
 
-            controls.Player.Enable(); // split this into a separate script to stop players from moving at the end/start of a race
+            controls.Player.Enable();
         }
         
         public void OnTurn(InputAction.CallbackContext context)
@@ -38,16 +38,14 @@ namespace Input
 
         public void OnFire(InputAction.CallbackContext context)
         {
-            
-            if (context.performed)
+            if (context.started)
             {
                 FireEvent?.Invoke(true);
             }
-            else if (context.canceled)
+            if (context.canceled)
             {
                 FireEvent?.Invoke(false);
             }
-            
         }
     }
 }
