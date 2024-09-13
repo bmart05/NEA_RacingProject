@@ -27,17 +27,19 @@ namespace Networking.Client
             }
         }
 
-        private ClientGameManager _gameManager;
-        
+        public ClientGameManager GameManager { get; private set; }
+
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
         }
 
-        public async Task CreateClient()
+        public async Task<bool> CreateClient()
         {
-            _gameManager = new ClientGameManager();
-            await _gameManager.InitAsync();
+            GameManager = new ClientGameManager();
+            return await GameManager.InitAsync();
         }
+
+        
     }
 }

@@ -14,7 +14,7 @@ namespace Networking
         private async void Start()
         {
             DontDestroyOnLoad(gameObject);
-            await LaunchInMode(SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null);
+            await LaunchInMode(SystemInfo.graphicsDeviceType == UnityEngine.Rendering.GraphicsDeviceType.Null);
         }
 
         private async Task LaunchInMode(bool isDedicatedServer)
@@ -25,11 +25,16 @@ namespace Networking
             }
             else // use listen server structure
             {
-                ClientSingleton clientSingleton = Instantiate(clientPrefab);
-                await clientSingleton.CreateClient();
-
                 HostSingleton hostSingleton = Instantiate(hostPrefab);
                 hostSingleton.CreateHost();
+                
+                ClientSingleton clientSingleton = Instantiate(clientPrefab);
+                bool authenticated = await clientSingleton.CreateClient();
+                
+                if (authenticated)
+                {
+                    clientSingleton.GameManager.GoToMenu();
+                }
             }
         }
     }
