@@ -25,7 +25,7 @@ namespace Core.Player
         public RacePosition position;
         public override void OnNetworkSpawn()
         {
-            RaceManager.Instance.InitializePlayer(this); //this fails to call as player is spawned before the game scene loads
+            //RaceManager.Instance.InitializePlayer(this); //this fails to call as player is spawned before the game scene loads
             //this will fix itself once i put race logic in as then player spawning will be handled by the playermanager
             if (IsOwner)
             {
