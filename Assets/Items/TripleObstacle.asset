@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TripleObstacle
   m_EditorClassIdentifier: 
   name: Triple Obstacle
-  itemImage: {fileID: 21300000, guid: 420ee0e93bf3d3a4f9a5dd8c756153ad, type: 3}
+  itemImage: {fileID: 21300000, guid: bfc6c9fc7210e9f46a22a80c921b79d6, type: 3}
   maxUses: 3
   tags:
   - {fileID: 11400000, guid: 7de9a551f77d68c4fa55a27de2267c7d, type: 2}
