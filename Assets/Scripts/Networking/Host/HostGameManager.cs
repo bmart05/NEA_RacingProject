@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
+using Networking.Server;
+using Networking.Shared;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
+using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Relay;
@@ -21,7 +25,8 @@ namespace Networking.Host
         private Allocation _allocation;
         private string _joinCode;
         private string _lobbyId;
-        
+        private NetworkServer _networkServer;
+
         public async Task StartHostAsync()
         {
             try
@@ -72,6 +77,17 @@ namespace Networking.Host
                 Debug.LogError(e);
                 throw;
             }
+
+            _networkServer = new NetworkServer(NetworkManager.Singleton);
+            
+            UserData userData = new UserData()
+            {
+                userName = "Test Username",
+                userAuthId = AuthenticationService.Instance.PlayerId
+            };
+            string payload = JsonUtility.ToJson(userData);
+            byte[] payloadByte = Encoding.UTF8.GetBytes(payload);
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadByte; 
 
             NetworkManager.Singleton.StartHost();
             
