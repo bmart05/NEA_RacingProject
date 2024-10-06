@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using Networking.Shared;
+using UI;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -54,7 +55,7 @@ namespace Networking.Client
 
             UserData userData = new UserData()
             {
-                userName = "Test Username",
+                userName = PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"),
                 userAuthId = AuthenticationService.Instance.PlayerId
             };
             string payload = JsonUtility.ToJson(userData);

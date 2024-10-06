@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Networking.Client;
 using Networking.Host;
+using Networking.Shared;
 using UnityEngine;
 
 namespace Networking
@@ -10,6 +11,7 @@ namespace Networking
     {
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
+        [SerializeField] private LobbyManager lobbyManagerPrefab;
         
         private async void Start()
         {
@@ -27,9 +29,12 @@ namespace Networking
             {
                 HostSingleton hostSingleton = Instantiate(hostPrefab);
                 hostSingleton.CreateHost();
+
+                Instantiate(lobbyManagerPrefab);
                 
                 ClientSingleton clientSingleton = Instantiate(clientPrefab);
                 bool authenticated = await clientSingleton.CreateClient();
+                
                 
                 if (authenticated)
                 {

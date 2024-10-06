@@ -31,8 +31,6 @@ namespace Networking.Server
             _authIdToUserData[userData.userAuthId] = userData;
 
             response.Approved = true;
-            response.CreatePlayerObject = true;
-            
         }
         private void OnNetworkReady()
         {

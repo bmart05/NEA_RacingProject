@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Networking.Server;
 using Networking.Shared;
+using UI;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Unity.Networking.Transport.Relay;
@@ -24,7 +25,7 @@ namespace Networking.Host
 
         private Allocation _allocation;
         private string _joinCode;
-        private string _lobbyId;
+        public string LobbyId { get; private set; }
         private NetworkServer _networkServer;
 
         public async Task StartHostAsync()
@@ -55,34 +56,13 @@ namespace Networking.Host
             RelayServerData relayServerData = new RelayServerData(_allocation, "dtls");
             transport.SetRelayServerData(relayServerData);
 
-            try
-            {
-                CreateLobbyOptions lobbyOptions = new CreateLobbyOptions();
-                lobbyOptions.IsPrivate = false;
-                lobbyOptions.Data = new Dictionary<string, DataObject>()
-                {
-                    {
-                        "JoinCode", new DataObject(
-                            visibility: DataObject.VisibilityOptions.Member,
-                            value: _joinCode
-                        )
-                    }
-                };
-                Lobby lobby = await Lobbies.Instance.CreateLobbyAsync("My Lobby", MaxConnections, lobbyOptions);
-                _lobbyId = lobby.Id;
-                HostSingleton.Instance.StartCoroutine(HeartbeatLobby(15f));
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.LogError(e);
-                throw;
-            }
+            await LobbyManager.Instance.CreateLobbyAsync(PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"), MaxConnections,_joinCode);
 
             _networkServer = new NetworkServer(NetworkManager.Singleton);
             
             UserData userData = new UserData()
             {
-                userName = "Test Username",
+                userName = PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"),
                 userAuthId = AuthenticationService.Instance.PlayerId
             };
             string payload = JsonUtility.ToJson(userData);
@@ -91,18 +71,7 @@ namespace Networking.Host
 
             NetworkManager.Singleton.StartHost();
             
-            //make this load the game lobby in future, this is fine for testing
-            NetworkManager.Singleton.SceneManager.LoadScene("SampleScene", LoadSceneMode.Single);
-        }
-
-        private IEnumerator HeartbeatLobby(float waitTimeSeconds)
-        {
-            WaitForSecondsRealtime delay = new WaitForSecondsRealtime(waitTimeSeconds);
-            while (true)
-            {
-                Lobbies.Instance.SendHeartbeatPingAsync(_lobbyId);
-                yield return delay;
-            }
+            NetworkManager.Singleton.SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
         }
     }
 }
