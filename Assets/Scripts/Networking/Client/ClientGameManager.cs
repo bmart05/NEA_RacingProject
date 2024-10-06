@@ -10,6 +10,7 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
+using Unity.Services.Vivox;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +25,7 @@ namespace Networking.Client
         public async Task<bool> InitAsync()
         {
             await UnityServices.InitializeAsync();
+            await VivoxService.Instance.InitializeAsync();
 
             _networkClient = new NetworkClient(NetworkManager.Singleton);
             
@@ -60,7 +62,7 @@ namespace Networking.Client
             };
             string payload = JsonUtility.ToJson(userData);
             byte[] payloadByte = Encoding.UTF8.GetBytes(payload);
-            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadByte; 
+            NetworkManager.Singleton.NetworkConfig.ConnectionData = payloadByte;
             
             NetworkManager.Singleton.StartClient();
         }

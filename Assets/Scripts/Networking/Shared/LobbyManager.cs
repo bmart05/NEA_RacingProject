@@ -8,6 +8,7 @@ using UI;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using Unity.Services.Vivox;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -98,6 +99,9 @@ namespace Networking.Shared
                 LobbyId = ActiveLobby.Id;
                 Players = ActiveLobby?.Players;
                 JoinCode = joinCode;
+                
+                await JoinGroupChannel(JoinCode);
+                
                 HostSingleton.Instance.StartCoroutine(HeartbeatLobby(15f));
             }
             catch (LobbyServiceException e)
@@ -134,6 +138,8 @@ namespace Networking.Shared
                 IsHost = false;
                 _playerName = playerName;
                 JoinCode = joinCode;
+
+                await JoinGroupChannel(JoinCode);
 
                 await ClientSingleton.Instance.GameManager.StartClientAsync(joinCode);
             }
@@ -197,6 +203,16 @@ namespace Networking.Shared
             }
         }
 
+        public async Task JoinGroupChannel(string channelName)
+        {
+            var loginOptions = new LoginOptions()
+            {
+                DisplayName = PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"),
+                EnableTTS = true
+            };
+            await VivoxService.Instance.LoginAsync(loginOptions);
+            await VivoxService.Instance.JoinGroupChannelAsync(channelName,ChatCapability.AudioOnly);
+        }
         public async Task PeriodicUpdateLobby()
         {
             try
