@@ -10,6 +10,7 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using Unity.Services.Vivox;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace Networking.Shared
@@ -100,7 +101,7 @@ namespace Networking.Shared
                 Players = ActiveLobby?.Players;
                 JoinCode = joinCode;
                 
-                await JoinGroupChannel(JoinCode);
+                await VivoxManager.Instance.JoinGroupChannel(JoinCode);
                 
                 HostSingleton.Instance.StartCoroutine(HeartbeatLobby(15f));
             }
@@ -139,7 +140,7 @@ namespace Networking.Shared
                 _playerName = playerName;
                 JoinCode = joinCode;
 
-                await JoinGroupChannel(JoinCode);
+                await VivoxManager.Instance.JoinGroupChannel(JoinCode);
 
                 await ClientSingleton.Instance.GameManager.StartClientAsync(joinCode);
             }
@@ -185,13 +186,41 @@ namespace Networking.Shared
             }
         }
 
+        public async Task DestroyCurrentLobby()
+        {
+            try
+            {
+                if (ActiveLobby != null && IsHost)
+                {
+                    await Lobbies.Instance.DeleteLobbyAsync(LobbyId);
+                    
+                    OnPlayerNotInLobby();
+                }
+            }
+            catch (LobbyServiceException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task LeaveCurrentLobby()
+        {
+            try
+            {
+                await RemovePlayer(PlayerId);
+                
+                OnPlayerNotInLobby();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public async Task RemovePlayer(string playerId)
         {
-            if (playerId == PlayerId)
-            {
-                return;
-            }
-            
             try
             {
                 await Lobbies.Instance.RemovePlayerAsync(LobbyId,playerId);
@@ -203,17 +232,18 @@ namespace Networking.Shared
             }
         }
 
-        public async Task JoinGroupChannel(string channelName)
+        public async void OnPlayerNotInLobby()
         {
-            var loginOptions = new LoginOptions()
+            if (ActiveLobby != null)
             {
-                DisplayName = PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"),
-                EnableTTS = true
-            };
-            await VivoxService.Instance.LoginAsync(loginOptions);
-            await VivoxService.Instance.JoinGroupChannelAsync(channelName,ChatCapability.AudioOnly);
+                ActiveLobby = null;
+                await VivoxManager.Instance.LeaveCurrentChannel();
+                SceneManager.LoadScene("MainMenu");
+            }
         }
-        public async Task PeriodicUpdateLobby()
+
+        
+        private async Task PeriodicUpdateLobby()
         {
             try
             {
@@ -250,7 +280,7 @@ namespace Networking.Shared
                 }
                 else
                 {
-                    //player has been kicked
+                    OnPlayerNotInLobby();
                 }
             }
         }

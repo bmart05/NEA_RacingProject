@@ -43,5 +43,17 @@ namespace UI
                 playerObject.Initialize(this,player.Data["PlayerName"].Value, player.Id, LobbyManager.Instance.IsHost);
             }
         }
+
+        public async void LeaveLobby()
+        {
+            if (LobbyManager.Instance.IsHost)
+            {
+                await LobbyManager.Instance.DestroyCurrentLobby();
+            }
+            else
+            {
+                await LobbyManager.Instance.LeaveCurrentLobby();
+            }
+        }
     }
 }

@@ -12,7 +12,8 @@ namespace Networking
         [SerializeField] private ClientSingleton clientPrefab;
         [SerializeField] private HostSingleton hostPrefab;
         [SerializeField] private LobbyManager lobbyManagerPrefab;
-        
+        [SerializeField] private VivoxManager vivoxManagerPrefab;
+         
         private async void Start()
         {
             DontDestroyOnLoad(gameObject);
@@ -31,6 +32,7 @@ namespace Networking
                 hostSingleton.CreateHost();
 
                 Instantiate(lobbyManagerPrefab);
+                Instantiate(vivoxManagerPrefab);
                 
                 ClientSingleton clientSingleton = Instantiate(clientPrefab);
                 bool authenticated = await clientSingleton.CreateClient();

@@ -816,6 +816,8 @@ MonoBehaviour:
     type: 3}
   lobbyManagerPrefab: {fileID: 579482472210834849, guid: 2cb5d2d096180d44886365cdee52648f,
     type: 3}
+  vivoxManagerPrefab: {fileID: 7847075951361084406, guid: 0d7c89fa18381b2498ccd01f7625045f,
+    type: 3}
 --- !u!4 &1666580203
 Transform:
   m_ObjectHideFlags: 0

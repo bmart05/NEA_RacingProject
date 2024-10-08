@@ -25,7 +25,6 @@ namespace Networking.Host
 
         private Allocation _allocation;
         private string _joinCode;
-        public string LobbyId { get; private set; }
         private NetworkServer _networkServer;
 
         public async Task StartHostAsync()
