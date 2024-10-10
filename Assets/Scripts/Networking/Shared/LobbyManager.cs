@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Networking.Client;
 using Networking.Host;
 using UI;
+using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
@@ -52,6 +53,7 @@ namespace Networking.Shared
         private string _playerName;
         private bool _isJoining;
         public bool IsHost { get; private set; }
+        public bool IsPrivate { get; private set; }
 
 
         private void Start()
@@ -186,6 +188,13 @@ namespace Networking.Shared
             }
         }
 
+        public async void StartGame()
+        {
+            await LockLobby(); //stops players from joining while in a game
+            
+            NetworkManager.Singleton.SceneManager.LoadScene("GameScene",LoadSceneMode.Single); //update to involve map voting
+        }
+
         public async Task DestroyCurrentLobby()
         {
             try
@@ -231,6 +240,76 @@ namespace Networking.Shared
                 throw;
             }
         }
+        
+        public async Task LockLobby()
+        {
+            try
+            {
+                UpdateLobbyOptions options = new UpdateLobbyOptions()
+                {
+                    IsLocked = true
+                };
+
+                await Lobbies.Instance.UpdateLobbyAsync(LobbyId, options);
+            }
+            catch (LobbyServiceException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        public async Task UnlockLobby()
+        {
+            try
+            {
+                UpdateLobbyOptions options = new UpdateLobbyOptions()
+                {
+                    IsLocked = false
+                };
+
+                await Lobbies.Instance.UpdateLobbyAsync(LobbyId, options);
+            }
+            catch (LobbyServiceException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        
+        public async Task SetLobbyToPrivate()
+        {
+            try
+            {
+                UpdateLobbyOptions options = new UpdateLobbyOptions()
+                {
+                    IsPrivate = true
+                };
+
+                await Lobbies.Instance.UpdateLobbyAsync(LobbyId, options);
+            }
+            catch (LobbyServiceException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        public async Task SetLobbyToPublic()
+        {
+            try
+            {
+                UpdateLobbyOptions options = new UpdateLobbyOptions()
+                {
+                    IsPrivate = false,
+                };
+
+                await Lobbies.Instance.UpdateLobbyAsync(LobbyId, options);
+            }
+            catch (LobbyServiceException e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
 
         public async void OnPlayerNotInLobby()
         {
@@ -273,6 +352,7 @@ namespace Networking.Shared
                 Debug.Log("Updated lobby");
                 ActiveLobby = newLobby;
                 Players = newLobby.Players;
+                IsPrivate = newLobby.IsPrivate;
 
                 if (Players.Exists(player => player.Id == PlayerId))
                 {

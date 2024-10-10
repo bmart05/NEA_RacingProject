@@ -33,6 +33,8 @@ namespace Core.Position
 
         public List<CarPlayer> playerObjects;
         public int NumLaps { get; private set; } = 3;
+
+        public List<Transform> startingPositions;
         
 
         private void Update()
@@ -45,7 +47,12 @@ namespace Core.Position
             playerObjects.Add(player);
             player.position.lapNumber = 0;
             player.position.checkpointNumber = 0;
-        } 
+        }
+
+        public Transform GetStartingPosition(int index)
+        {
+            return startingPositions[index];
+        }
 
         private void SortPositions()
         {

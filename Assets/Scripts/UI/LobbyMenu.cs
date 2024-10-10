@@ -44,6 +44,12 @@ namespace UI
             }
         }
 
+        public void StartGame()
+        {
+            LobbyManager.Instance.StartGame();
+        }
+        
+
         public async void LeaveLobby()
         {
             if (LobbyManager.Instance.IsHost)

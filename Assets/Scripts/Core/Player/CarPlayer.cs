@@ -43,6 +43,11 @@ namespace Core.Player
             }
         }
 
+        public void SetCanMove(bool value)
+        {
+            carController.SetCanMove(value);
+        }
+
         [ServerRpc(RequireOwnership = false)]
         public void StunPlayerServerRpc()
         {
