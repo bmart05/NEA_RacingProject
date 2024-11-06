@@ -117,7 +117,7 @@ namespace Networking.Shared
             _playerName = playerName;
         }
         
-        public async Task JoinLobbyAsync(string playerName, string lobbyId)
+        public async Task JoinLobbyByIdAsync(string playerName, string lobbyId)
         {
             if (_isJoining)
             {
@@ -145,6 +145,45 @@ namespace Networking.Shared
                 await VivoxManager.Instance.JoinGroupChannel(JoinCode);
 
                 await ClientSingleton.Instance.GameManager.StartClientAsync(joinCode);
+            }
+            catch (LobbyServiceException e)
+            {   
+                Console.WriteLine(e);
+                throw;
+            }
+
+            _isJoining = false;
+
+           
+        }
+        
+        public async Task JoinLobbyByCodeAsync(string playerName, string lobbyJoinCode)
+        {
+            if (_isJoining)
+            {
+                return;
+            }
+            
+            _isJoining = true;
+            try
+            {
+
+                JoinLobbyByCodeOptions options = new JoinLobbyByCodeOptions()
+                {
+                    Player = CreatePlayerData()
+                };
+
+                ActiveLobby = await Lobbies.Instance.JoinLobbyByCodeAsync(lobbyJoinCode, options);
+                LobbyName = ActiveLobby.Name;
+                LobbyId = ActiveLobby.Id;
+                Players = ActiveLobby?.Players;
+                IsHost = false;
+                _playerName = playerName;
+                JoinCode = lobbyJoinCode;
+
+                await VivoxManager.Instance.JoinGroupChannel(JoinCode);
+
+                await ClientSingleton.Instance.GameManager.StartClientAsync(JoinCode);
             }
             catch (LobbyServiceException e)
             {   

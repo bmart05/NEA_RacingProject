@@ -35,7 +35,7 @@ namespace Core.Position.Checkpoints
         {
             for (int i = 0; i < checkpoints.Count; i++)
             {
-                checkpoints[i].Initialize(i+1);
+                checkpoints[i].Initialize(i);
             }
         }
 
@@ -54,6 +54,19 @@ namespace Core.Position.Checkpoints
             else
             {
                 Debug.Log("Stop trying to skip the track!");
+            }
+        }
+
+        public void ActivateLap(CarPlayer player)
+        {
+            if (player.position.checkpointNumber >= checkpoints.Count)
+            {
+                player.position.lapNumber++;
+                player.position.checkpointNumber = 0;
+                if (player.position.lapNumber == (RaceManager.Instance.NumLaps - 1))
+                {
+                    //player has finished race
+                }
             }
         }
     }

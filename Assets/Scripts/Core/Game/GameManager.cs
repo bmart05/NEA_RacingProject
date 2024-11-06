@@ -15,14 +15,13 @@ namespace Core.Game
 
         [SerializeField] private List<CarPlayer> _playerObjects;
         
-        private int NumPlayers;
-        private int _playersLoadedIn;
+        public int NumPlayers;
+        public int _playersLoadedIn;
         
         private void Start()
         {
             if (IsHost)
             {
-                SpawnAllPlayers();
                 InitializeGame();
             }
             else
@@ -34,29 +33,26 @@ namespace Core.Game
         private void SpawnAllPlayers()
         {
             var connectedClients = NetworkManager.Singleton.ConnectedClients;
-            NumPlayers = connectedClients.Count;
-
             int playerIndex = 0;
             foreach (var relayClientId in connectedClients.Keys)
             {
                 Transform startingPosition = RaceManager.Instance.GetStartingPosition(playerIndex);
+                Debug.Log(startingPosition.position);
                 CarPlayer playerObject = Instantiate(playerPrefab, startingPosition.position,startingPosition.rotation);
                 playerObject.NetworkObject.SpawnWithOwnership(relayClientId);
                 RaceManager.Instance.InitializePlayer(playerObject);
                 _playerObjects.Add(playerObject);
                 playerIndex++;
             }
+            GameStartedClientRpc();
         }
 
         private void InitializeGame()
         {
-            if (!IsHost)
+            
+            if(IsHost)
             {
-                _playerObjects = FindObjectsOfType<CarPlayer>().ToList();
-                foreach (var player in _playerObjects)
-                {
-                    RaceManager.Instance.InitializePlayer(player);
-                }
+                NumPlayers = NetworkManager.Singleton.ConnectedClients.Count;
             }
             OnPlayerStartedGameServerRpc();
         }
@@ -67,17 +63,21 @@ namespace Core.Game
             _playersLoadedIn++;
             if (_playersLoadedIn >= NumPlayers)
             {
-                GameStartedClientRpc();
+                SpawnAllPlayers();
             }
         }
 
         [ClientRpc]
         private void GameStartedClientRpc()
         {
-            // foreach (var player in _playerObjects)
-            // {
-            //     player.SetCanMove(true);
-            // }
+            if (!IsHost)
+            {
+                _playerObjects = FindObjectsOfType<CarPlayer>().ToList();
+                foreach (var player in _playerObjects)
+                {
+                    RaceManager.Instance.InitializePlayer(player);
+                }
+            }
         }
     }
 }

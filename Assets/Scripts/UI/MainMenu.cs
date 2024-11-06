@@ -1,5 +1,6 @@
 ﻿using Networking.Client;
 using Networking.Host;
+using Networking.Shared;
 using TMPro;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ namespace UI
 
         public async void StartClient()
         {
-            await ClientSingleton.Instance.GameManager.StartClientAsync(joinCodeField.text);
+            await LobbyManager.Instance.JoinLobbyByCodeAsync(PlayerPrefs.GetString(NameInput.PlayerNameKey,"Anonymous Player"),joinCodeField.text);
         }
     }
 }

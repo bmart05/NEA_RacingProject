@@ -21,16 +21,21 @@ namespace UI
         
         private void Start()
         {
+            startButton.SetActive(false);
             RefreshList(LobbyManager.Instance.ActiveLobby);
             joinCodeText.text = LobbyManager.Instance.JoinCode;
             lobbyNameText.text = LobbyManager.Instance.LobbyName;
-            startButton.SetActive(LobbyManager.Instance.IsHost);
             
             LobbyManager.OnLobbyUpdate += RefreshList;
         }
 
         private void RefreshList(Lobby lobby)
         {
+            if (lobby.Players.Count > 1 && LobbyManager.Instance.IsHost)
+            {
+                startButton.SetActive(true);
+            }
+            
             foreach (Transform child in lobbyPlayerObjectParent)   
             {
                 Destroy(child.gameObject);

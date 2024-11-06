@@ -43,7 +43,7 @@ namespace UI
 
         public async void JoinAsync(Lobby lobby)
         {
-            await LobbyManager.Instance.JoinLobbyAsync(PlayerPrefs.GetString(NameInput.PlayerNameKey,"Anonymous Player"),lobby.Id);
+            await LobbyManager.Instance.JoinLobbyByIdAsync(PlayerPrefs.GetString(NameInput.PlayerNameKey,"Anonymous Player"),lobby.Id);
         }
     }
 }

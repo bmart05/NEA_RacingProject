@@ -31,9 +31,16 @@ namespace Core.Position
         [Header("References")] 
         [SerializeField] private TMP_Text positionText;
 
+        [SerializeField] private TMP_Text lapNumberText;
+
         public void UpdateText(int racePosition)
         {
             positionText.text = racePosition.ToString(); 
+        }
+
+        public void UpdateLapNumber(int lapNumber)
+        {
+            lapNumberText.text = $"{lapNumber}/{RaceManager.Instance.NumLaps}";
         }
     }
 }
