@@ -46,6 +46,11 @@ namespace Core.Position.Checkpoints
 
         public void ActivateCheckpoint(Checkpoint checkpoint,CarPlayer player)
         {
+            if ((checkpoint.Index + 1) == checkpoints.Count)
+            {
+                ActivateLap(player);
+                return;
+            }
             if ((checkpoint.Index-player.position.checkpointNumber)<=1)//if the checkpoint is the next checkpoint or a previous one
             {
                 player.position.checkpointNumber = checkpoint.Index;
@@ -59,13 +64,15 @@ namespace Core.Position.Checkpoints
 
         public void ActivateLap(CarPlayer player)
         {
-            if (player.position.checkpointNumber >= checkpoints.Count)
+            Debug.Log("Attemped to finish lap");
+            if ((player.position.checkpointNumber+2) == checkpoints.Count)
             {
                 player.position.lapNumber++;
                 player.position.checkpointNumber = 0;
-                if (player.position.lapNumber == (RaceManager.Instance.NumLaps - 1))
+                Debug.Log("Finished lap");
+                if (player.position.lapNumber == (RaceManager.Instance.NumLaps+1))
                 {
-                    //player has finished race
+                    player.SetFinished();
                 }
             }
         }

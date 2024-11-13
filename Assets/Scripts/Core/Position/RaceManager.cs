@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Game;
 using Core.Player;
 using Core.Position.Checkpoints;
 using Unity.Netcode;
 using UnityEngine;
+using Utilities;
+using Random = System.Random;
 
 namespace Core.Position
 {
@@ -40,6 +43,7 @@ namespace Core.Position
         private void Update()
         {
             SortPositions();
+            CheckFinishedPlayers();
         }
 
         public void InitializePlayer(CarPlayer player)
@@ -63,7 +67,31 @@ namespace Core.Position
                     CheckpointManager.Instance.GetCheckpointPosition(p.position.checkpointNumber+1),
                     p.transform.position)).ToList();
 
+            
         }
+
+        private void CheckFinishedPlayers()
+        {
+            int total = 0;
+            foreach (var player in playerObjects)
+            {
+                if (player.hasFinished)
+                {
+                    total++;
+                }
+            }
+
+            if (total >= (Mathf.Floor(playerObjects.Count / 2)))
+            {
+                //start countdown to finish
+            }
+            else if (total == playerObjects.Count)
+            {
+                GameManager.Instance.HandleFinishGame();
+            }
+        }
+
+        
 
         public int GetPosition(CarPlayer player)
         {

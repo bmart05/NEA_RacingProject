@@ -23,6 +23,7 @@ namespace Core.Player
         
         
         public RacePosition position;
+        public bool hasFinished = false;
         public override void OnNetworkSpawn()
         {
             //RaceManager.Instance.InitializePlayer(this); //this fails to call as player is spawned before the game scene loads
@@ -39,13 +40,22 @@ namespace Core.Player
             if (IsOwner) //no need to do this for other clients, as we don't need to know their position, just where we are
             {
                 position.racePosition = RaceManager.Instance.GetPosition(this);
-                RaceUI.Instance.UpdateText(position.racePosition);
+                RaceUI.Instance.UpdatePositionText(position);
+                if (hasFinished)
+                {
+                    //handle player finishing
+                }
             }
         }
 
         public void SetCanMove(bool value)
         {
             carController.SetCanMove(value);
+        }
+
+        public void SetFinished()
+        {
+            hasFinished = true;
         }
 
         [ServerRpc(RequireOwnership = false)]

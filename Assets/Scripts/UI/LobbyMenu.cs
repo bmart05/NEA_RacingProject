@@ -21,7 +21,7 @@ namespace UI
         
         private void Start()
         {
-            startButton.SetActive(false);
+            startButton.SetActive(true);
             RefreshList(LobbyManager.Instance.ActiveLobby);
             joinCodeText.text = LobbyManager.Instance.JoinCode;
             lobbyNameText.text = LobbyManager.Instance.LobbyName;

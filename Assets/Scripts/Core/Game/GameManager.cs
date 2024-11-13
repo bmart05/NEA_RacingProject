@@ -10,6 +10,28 @@ namespace Core.Game
 {
     public class GameManager : NetworkBehaviour
     {
+        private static GameManager _instance;
+
+        public static GameManager Instance
+        {
+            get
+            {
+                if (_instance != null)
+                {
+                    return _instance;
+                }
+
+                _instance = FindObjectOfType<GameManager>();
+                if (_instance == null)
+                {
+                    return null;
+                }
+
+                return _instance;
+            }
+        }
+
+        
         [Header("References")] 
         [SerializeField] private CarPlayer playerPrefab; //this should change for each player but is fine for now
 
@@ -78,6 +100,15 @@ namespace Core.Game
                     RaceManager.Instance.InitializePlayer(player);
                 }
             }
+        }
+        
+        public void HandleFinishGame()
+        {
+            foreach (var player in _playerObjects)
+            {
+                player.SetCanMove(false);
+            }
+            RaceUI.Instance.ShowFinishUI();
         }
     }
 }

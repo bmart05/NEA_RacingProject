@@ -32,15 +32,19 @@ namespace Core.Position
         [SerializeField] private TMP_Text positionText;
 
         [SerializeField] private TMP_Text lapNumberText;
+        [SerializeField] private GameObject gameUI;
+        [SerializeField] private GameObject finishUI;
 
-        public void UpdateText(int racePosition)
+        public void UpdatePositionText(RacePosition position)
         {
-            positionText.text = racePosition.ToString(); 
+            positionText.text = position.racePosition.ToString();
+            lapNumberText.text = $"{position.lapNumber.ToString()}/{RaceManager.Instance.NumLaps}";
         }
 
-        public void UpdateLapNumber(int lapNumber)
+        public void ShowFinishUI()
         {
-            lapNumberText.text = $"{lapNumber}/{RaceManager.Instance.NumLaps}";
+            gameUI.SetActive(false);
+            finishUI.SetActive(true);
         }
     }
 }

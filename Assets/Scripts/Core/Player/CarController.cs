@@ -60,6 +60,7 @@ namespace Core.Player
         private void Start()
         {
             sphereRb.transform.parent = null;
+            sphereRb.transform.position = transform.position;
         }
 
         void Update()
@@ -74,6 +75,7 @@ namespace Core.Player
             
             if (!IsOwner)
             {
+                Debug.Log(sphereRb.transform.position);
                 return;
             }
             transform.position = sphereRb.transform.position;
