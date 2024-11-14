@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Player;
 using Core.Position;
 using Unity.Netcode;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace Core.Game
@@ -36,9 +38,12 @@ namespace Core.Game
         [SerializeField] private CarPlayer playerPrefab; //this should change for each player but is fine for now
 
         [SerializeField] private List<CarPlayer> _playerObjects;
-        
-        public int NumPlayers;
-        public int _playersLoadedIn;
+
+        public int NumPlayers { get; private set; }
+        public bool HasGameStarted { get; private set; }
+        public bool HasGameFinished { get; private set; }
+        private int _playersLoadedIn;
+        private int _playersFinishedCountdown;
         
         private void Start()
         {
@@ -63,10 +68,12 @@ namespace Core.Game
                 CarPlayer playerObject = Instantiate(playerPrefab, startingPosition.position,startingPosition.rotation);
                 playerObject.NetworkObject.SpawnWithOwnership(relayClientId);
                 RaceManager.Instance.InitializePlayer(playerObject);
+                playerObject.SetCanMove(false);
                 _playerObjects.Add(playerObject);
                 playerIndex++;
             }
-            GameStartedClientRpc();
+            Debug.Log("Spawned all players");
+            StartCountdownClientRpc(); //start countdown on all clients once they have spawned
         }
 
         private void InitializeGame()
@@ -79,6 +86,31 @@ namespace Core.Game
             OnPlayerStartedGameServerRpc();
         }
 
+        [ClientRpc]
+        private void StartCountdownClientRpc()
+        {
+            StartCoroutine(StartCountdown());
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void FinishCountdownServerRpc()
+        {
+            _playersFinishedCountdown++;
+            if (_playersFinishedCountdown >= NumPlayers) //all clients must finish the countdown before the game starts to prevent players
+                                                         //from finishing at different times on different clients
+            {
+                Debug.Log("Go!");
+                GameStartedClientRpc();
+            }
+        }
+
+        private IEnumerator StartCountdown()
+        {
+            Debug.Log("Started race countdown");
+            yield return new WaitForSecondsRealtime(3f);
+            FinishCountdownServerRpc();
+        }
+        
         [ServerRpc(RequireOwnership = false)]
         private void OnPlayerStartedGameServerRpc()
         {
@@ -92,21 +124,29 @@ namespace Core.Game
         [ClientRpc]
         private void GameStartedClientRpc()
         {
+            Debug.Log("Game has started");
+            HasGameStarted = true;
             if (!IsHost)
             {
                 _playerObjects = FindObjectsOfType<CarPlayer>().ToList();
-                foreach (var player in _playerObjects)
+            }
+            foreach (var player in _playerObjects)
+            {
+                if (!IsHost)
                 {
                     RaceManager.Instance.InitializePlayer(player);
                 }
+                player.SetCanMove(true);
             }
         }
         
         public void HandleFinishGame()
         {
+            HasGameFinished = true;
             foreach (var player in _playerObjects)
             {
-                player.SetCanMove(false);
+                _playerObjects.Remove(player);
+                Destroy(player);
             }
             RaceUI.Instance.ShowFinishUI();
         }

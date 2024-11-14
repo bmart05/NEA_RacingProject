@@ -38,7 +38,7 @@ namespace Core.Position
         public void UpdatePositionText(RacePosition position)
         {
             positionText.text = position.racePosition.ToString();
-            lapNumberText.text = $"{position.lapNumber.ToString()}/{RaceManager.Instance.NumLaps}";
+            lapNumberText.text = $"{(position.lapNumber+1).ToString()}/{RaceManager.Instance.NumLaps}";
         }
 
         public void ShowFinishUI()

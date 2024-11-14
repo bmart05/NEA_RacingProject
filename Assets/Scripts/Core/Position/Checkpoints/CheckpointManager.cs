@@ -70,9 +70,10 @@ namespace Core.Position.Checkpoints
                 player.position.lapNumber++;
                 player.position.checkpointNumber = 0;
                 Debug.Log("Finished lap");
-                if (player.position.lapNumber == (RaceManager.Instance.NumLaps+1))
+                if (player.position.lapNumber == (RaceManager.Instance.NumLaps))
                 {
-                    player.SetFinished();
+                    Debug.Log("Finished race");
+                    RaceManager.Instance.FinishPlayer(player);
                 }
             }
         }

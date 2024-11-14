@@ -35,9 +35,10 @@ namespace Core.Position
         }
 
         public List<CarPlayer> playerObjects;
-        public int NumLaps { get; private set; } = 3;
+        [field: SerializeField] public int NumLaps { get; private set; } = 3;
 
         public List<Transform> startingPositions;
+        public List<CarPlayer> finishingPositions; // might want to update this to dictionary with clientId,racePosition as player object might be destroyed for spectator mode?
         
 
         private void Update()
@@ -60,6 +61,10 @@ namespace Core.Position
 
         private void SortPositions()
         {
+            if (!GameManager.Instance.HasGameStarted || GameManager.Instance.HasGameFinished)
+            {
+                return;
+            }
             playerObjects = playerObjects
                 .OrderBy(p => p.position.lapNumber)
                 .ThenBy(p => p.position.checkpointNumber)
@@ -67,11 +72,19 @@ namespace Core.Position
                     CheckpointManager.Instance.GetCheckpointPosition(p.position.checkpointNumber+1),
                     p.transform.position)).ToList();
 
-            
+        }
+
+        public void FinishPlayer(CarPlayer carPlayer)
+        {
+            carPlayer.SetFinished();
         }
 
         private void CheckFinishedPlayers()
         {
+            if (!GameManager.Instance.HasGameStarted && !GameManager.Instance.HasGameFinished)
+            {
+                return;
+            }
             int total = 0;
             foreach (var player in playerObjects)
             {
@@ -80,19 +93,15 @@ namespace Core.Position
                     total++;
                 }
             }
-
-            if (total >= (Mathf.Floor(playerObjects.Count / 2)))
+            
+            //start countdown to finish if over half of the players have finished
+            if (total == GameManager.Instance.NumPlayers)
             {
-                //start countdown to finish
-            }
-            else if (total == playerObjects.Count)
-            {
+                playerObjects.Clear();
                 GameManager.Instance.HandleFinishGame();
             }
         }
-
         
-
         public int GetPosition(CarPlayer player)
         {
             return playerObjects.Count - playerObjects.FindIndex(x => x==player);

@@ -420,7 +420,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 51120159}
-  - component: {fileID: 51120160}
   m_Layer: 5
   m_Name: RaceUI
   m_TagString: Untagged
@@ -449,22 +448,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1820.0001, y: 979.29004}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &51120160
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 51120158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb4380266334fd48e92407a60f9c659, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  positionText: {fileID: 900053776}
-  lapNumberText: {fileID: 773190231}
-  gameUI: {fileID: 0}
-  finishUI: {fileID: 0}
 --- !u!43 &74644699
 Mesh:
   m_ObjectHideFlags: 0
@@ -1371,8 +1354,6 @@ MonoBehaviour:
   playerPrefab: {fileID: 8282326441721381462, guid: 859152d362254ed4aaf583d4c69876e2,
     type: 3}
   _playerObjects: []
-  NumPlayers: 0
-  _playersLoadedIn: 0
 --- !u!4 &232386296
 Transform:
   m_ObjectHideFlags: 0
@@ -5867,7 +5848,7 @@ Transform:
   m_GameObject: {fileID: 1202397167}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34.784008, y: -4.6539955, z: 13.065922}
+  m_LocalPosition: {x: 34.784008, y: -3.2, z: 13.065922}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7920,6 +7901,7 @@ GameObject:
   - component: {fileID: 1561425831}
   - component: {fileID: 1561425830}
   - component: {fileID: 1561425829}
+  - component: {fileID: 1561425833}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8011,6 +7993,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1561425833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561425827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb4380266334fd48e92407a60f9c659, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionText: {fileID: 900053776}
+  lapNumberText: {fileID: 773190231}
+  gameUI: {fileID: 1418250337}
+  finishUI: {fileID: 513391394}
 --- !u!1001 &1604151645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10811,6 +10809,11 @@ PrefabInstance:
       propertyPath: checkpointSwapMat
       value: 
       objectReference: {fileID: 2100000, guid: c297b09b552da4442ab5c911f4c19086, type: 2}
+    - target: {fileID: 7289256633370858273, guid: 13369cae3f6adbd4ebce2892ae20af40,
+        type: 3}
+      propertyPath: <NumLaps>k__BackingField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7289256633370858273, guid: 13369cae3f6adbd4ebce2892ae20af40,
         type: 3}
       propertyPath: startingPositions.Array.size
