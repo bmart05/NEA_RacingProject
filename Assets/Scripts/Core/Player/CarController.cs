@@ -100,15 +100,15 @@ namespace Core.Player
             
             if (_isGrounded && IsOwner)
             {
-                sphereRb.drag = groundDrag;
-                if (Mathf.Abs(_accelInput) > 0 && sphereRb.velocity.magnitude <= maxSpeed)
+                sphereRb.linearDamping = groundDrag;
+                if (Mathf.Abs(_accelInput) > 0 && sphereRb.linearVelocity.magnitude <= maxSpeed)
                 {
                     sphereRb.AddForce(_speed * transform.forward);
                 }
             }
             else
             { 
-                sphereRb.drag = 0.1f;
+                sphereRb.linearDamping = 0.1f;
                 sphereRb.AddForce(Vector3.down * (gravityForce * 100f));
             }
             

@@ -117,7 +117,7 @@ namespace Core.Player
             
             if (projectile.TryGetComponent(out Rigidbody rb))
             {
-                rb.velocity = projectile.transform.forward * projectileSpeed;
+                rb.linearVelocity = projectile.transform.forward * projectileSpeed;
             }
             SpawnDummyProjectileClientRpc(projectileSpeed);
         }
@@ -141,7 +141,7 @@ namespace Core.Player
 
             if (projectile.TryGetComponent(out Rigidbody rb))
             {
-                rb.velocity = projectile.transform.forward * projectileSpeed;
+                rb.linearVelocity = projectile.transform.forward * projectileSpeed;
             }
         }
 
