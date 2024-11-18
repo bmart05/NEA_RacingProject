@@ -32,6 +32,11 @@ namespace Networking.Server
 
             response.Approved = true;
         }
+
+        public UserData GetUserDataFromClientId(ulong clientId)
+        {
+            return _authIdToUserData[_clientIdToAuthId[clientId]];
+        }
         private void OnNetworkReady()
         {
             _manager.OnClientDisconnectCallback += OnClientDisconnect;

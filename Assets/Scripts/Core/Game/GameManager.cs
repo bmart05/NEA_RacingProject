@@ -39,9 +39,10 @@ namespace Core.Game
 
         [SerializeField] private List<CarPlayer> _playerObjects;
 
-        public int NumPlayers { get; private set; }
+        public NetworkVariable<int> NumPlayers { get; private set; } = new NetworkVariable<int>();
         public bool HasGameStarted { get; private set; }
         public bool HasGameFinished { get; private set; }
+        
         private int _playersLoadedIn;
         private int _playersFinishedCountdown;
         
@@ -81,7 +82,7 @@ namespace Core.Game
             
             if(IsHost)
             {
-                NumPlayers = NetworkManager.Singleton.ConnectedClients.Count;
+                NumPlayers.Value = NetworkManager.Singleton.ConnectedClients.Count;
             }
             OnPlayerStartedGameServerRpc();
         }
@@ -96,7 +97,7 @@ namespace Core.Game
         private void FinishCountdownServerRpc()
         {
             _playersFinishedCountdown++;
-            if (_playersFinishedCountdown >= NumPlayers) //all clients must finish the countdown before the game starts to prevent players
+            if (_playersFinishedCountdown >= NumPlayers.Value) //all clients must finish the countdown before the game starts to prevent players
                                                          //from finishing at different times on different clients
             {
                 Debug.Log("Go!");
@@ -115,7 +116,7 @@ namespace Core.Game
         private void OnPlayerStartedGameServerRpc()
         {
             _playersLoadedIn++;
-            if (_playersLoadedIn >= NumPlayers)
+            if (_playersLoadedIn >= NumPlayers.Value)
             {
                 SpawnAllPlayers();
             }
@@ -125,7 +126,6 @@ namespace Core.Game
         private void GameStartedClientRpc()
         {
             Debug.Log("Game has started");
-            HasGameStarted = true;
             if (!IsHost)
             {
                 _playerObjects = FindObjectsOfType<CarPlayer>().ToList();
@@ -138,16 +138,25 @@ namespace Core.Game
                 }
                 player.SetCanMove(true);
             }
+            RaceManager.Instance.SetStartingTime();
+            HasGameStarted = true;
         }
         
-        public void HandleFinishGame()
+        [ServerRpc]
+        public void HandleFinishGameServerRpc()
         {
-            HasGameFinished = true;
+            HandleFinishGameClientRpc();
+            Debug.Log("Destroying players");
             foreach (var player in _playerObjects)
             {
-                _playerObjects.Remove(player);
-                Destroy(player);
+                Destroy(player.gameObject);
             }
+        }
+
+        [ClientRpc]
+        private void HandleFinishGameClientRpc()
+        {
+            HasGameFinished = true;
             RaceUI.Instance.ShowFinishUI();
         }
     }

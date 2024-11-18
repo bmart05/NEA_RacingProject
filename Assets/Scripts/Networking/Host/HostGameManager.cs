@@ -25,7 +25,7 @@ namespace Networking.Host
 
         private Allocation _allocation;
         private string _joinCode;
-        private NetworkServer _networkServer;
+        public NetworkServer NetworkServer { get; private set; }
 
         public async Task StartHostAsync()
         {
@@ -57,7 +57,7 @@ namespace Networking.Host
 
             await LobbyManager.Instance.CreateLobbyAsync(PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"), MaxConnections,_joinCode);
 
-            _networkServer = new NetworkServer(NetworkManager.Singleton);
+            NetworkServer = new NetworkServer(NetworkManager.Singleton);
             
             UserData userData = new UserData()
             {

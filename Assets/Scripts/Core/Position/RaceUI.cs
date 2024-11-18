@@ -30,15 +30,17 @@ namespace Core.Position
         
         [Header("References")] 
         [SerializeField] private TMP_Text positionText;
-
         [SerializeField] private TMP_Text lapNumberText;
+        [SerializeField] private TMP_Text raceTimerText;
         [SerializeField] private GameObject gameUI;
         [SerializeField] private GameObject finishUI;
 
         public void UpdatePositionText(RacePosition position)
         {
             positionText.text = position.racePosition.ToString();
-            lapNumberText.text = $"{(position.lapNumber+1).ToString()}/{RaceManager.Instance.NumLaps}";
+            lapNumberText.text = $"{(position.lapNumber).ToString()}/{RaceManager.Instance.NumLaps}";
+            TimeSpan timeSpan = TimeSpan.FromSeconds(Time.realtimeSinceStartup - RaceManager.Instance.StartingTime);
+            raceTimerText.text = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}:{(timeSpan.Milliseconds / 10):00}";
         }
 
         public void ShowFinishUI()

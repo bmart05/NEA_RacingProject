@@ -25,7 +25,12 @@ namespace Input
 
             controls.Player.Enable();
         }
-        
+
+        private void OnDisable()
+        {
+            controls.Player.Disable(); //frees memory
+        }
+
         public void OnTurn(InputAction.CallbackContext context)
         {
             TurnEvent?.Invoke(context.ReadValue<float>());

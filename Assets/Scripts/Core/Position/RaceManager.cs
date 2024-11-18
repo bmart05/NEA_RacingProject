@@ -38,8 +38,9 @@ namespace Core.Position
         [field: SerializeField] public int NumLaps { get; private set; } = 3;
 
         public List<Transform> startingPositions;
-        public List<CarPlayer> finishingPositions; // might want to update this to dictionary with clientId,racePosition as player object might be destroyed for spectator mode?
-        
+        public Dictionary<ulong, RacePosition> FinishingPositions = new Dictionary<ulong, RacePosition>();
+        public float StartingTime { get; private set; }
+
 
         private void Update()
         {
@@ -57,6 +58,11 @@ namespace Core.Position
         public Transform GetStartingPosition(int index)
         {
             return startingPositions[index];
+        }
+
+        public void SetStartingTime()
+        {
+            StartingTime = Time.realtimeSinceStartup;
         }
 
         private void SortPositions()
@@ -77,10 +83,21 @@ namespace Core.Position
         public void FinishPlayer(CarPlayer carPlayer)
         {
             carPlayer.SetFinished();
+            carPlayer.position.finishingTime = Time.realtimeSinceStartup - StartingTime;
+            FinishingPositions.Add(carPlayer.OwnerClientId,carPlayer.position);
+            playerObjects.Remove(carPlayer);
+            if (IsHost)
+            {
+                Destroy(carPlayer.gameObject);
+            }
         }
 
         private void CheckFinishedPlayers()
         {
+            if (!IsHost)
+            {
+                return;
+            }
             if (!GameManager.Instance.HasGameStarted && !GameManager.Instance.HasGameFinished)
             {
                 return;
@@ -95,10 +112,10 @@ namespace Core.Position
             }
             
             //start countdown to finish if over half of the players have finished
-            if (total == GameManager.Instance.NumPlayers)
+            if (total == GameManager.Instance.NumPlayers.Value)
             {
                 playerObjects.Clear();
-                GameManager.Instance.HandleFinishGame();
+                GameManager.Instance.HandleFinishGameServerRpc();
             }
         }
         

@@ -3,6 +3,9 @@ using System.Collections;
 using Cinemachine;
 using Core.Position;
 using Core.Position.Checkpoints;
+using Networking.Host;
+using Networking.Shared;
+using Unity.Collections;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -24,6 +27,10 @@ namespace Core.Player
         
         public RacePosition position;
         public bool hasFinished = false;
+
+        public NetworkVariable<FixedString32Bytes> PlayerName { get; private set; } =
+            new NetworkVariable<FixedString32Bytes>();
+
         public override void OnNetworkSpawn()
         {
             //RaceManager.Instance.InitializePlayer(this); //this fails to call as player is spawned before the game scene loads
@@ -33,18 +40,26 @@ namespace Core.Player
                 //network player will have the highest priority camera so it will always be the one selected
                 carCamera.Priority = ownerCamPriority; 
             }
+
+            if (IsHost)
+            {
+                UserData userData =
+                    HostSingleton.Instance.GameManager.NetworkServer.GetUserDataFromClientId(OwnerClientId);
+                PlayerName.Value = userData.userName;
+            }
+        }
+
+        private void Start()
+        {
+            position.playerName = PlayerName.Value.ToString();
         }
 
         private void Update()
         {
-            if (IsOwner) //no need to do this for other clients, as we don't need to know their position, just where we are
+            position.racePosition = RaceManager.Instance.GetPosition(this);
+            if (IsOwner) 
             {
-                position.racePosition = RaceManager.Instance.GetPosition(this);
                 RaceUI.Instance.UpdatePositionText(position);
-                if (hasFinished)
-                {
-                    //handle player finishing
-                }
             }
         }
 
