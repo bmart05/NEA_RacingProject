@@ -40,8 +40,8 @@ namespace Core.Game
         [SerializeField] private List<CarPlayer> _playerObjects;
 
         public NetworkVariable<int> NumPlayers { get; private set; } = new NetworkVariable<int>();
-        public bool HasGameStarted { get; private set; }
-        public bool HasGameFinished { get; private set; }
+        public NetworkVariable<bool> HasGameStarted{ get; private set; } = new NetworkVariable<bool>();
+        public NetworkVariable<bool> HasGameFinished { get; private set; } = new NetworkVariable<bool>();
         
         private int _playersLoadedIn;
         private int _playersFinishedCountdown;
@@ -130,6 +130,10 @@ namespace Core.Game
             {
                 _playerObjects = FindObjectsOfType<CarPlayer>().ToList();
             }
+            else
+            {
+                HasGameStarted.Value = true;
+            }
             foreach (var player in _playerObjects)
             {
                 if (!IsHost)
@@ -139,24 +143,23 @@ namespace Core.Game
                 player.SetCanMove(true);
             }
             RaceManager.Instance.SetStartingTime();
-            HasGameStarted = true;
         }
         
         [ServerRpc]
         public void HandleFinishGameServerRpc()
         {
-            HandleFinishGameClientRpc();
+            HasGameFinished.Value = true;
             Debug.Log("Destroying players");
             foreach (var player in _playerObjects)
             {
                 Destroy(player.gameObject);
             }
+            HandleFinishGameClientRpc();
         }
 
         [ClientRpc]
         private void HandleFinishGameClientRpc()
         {
-            HasGameFinished = true;
             RaceUI.Instance.ShowFinishUI();
         }
     }

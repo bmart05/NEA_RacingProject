@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Core.Position;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace UI
@@ -22,12 +24,15 @@ namespace UI
                 Destroy(child.gameObject);
             }
 
+            int position = 1;
             foreach (var playerPosition in RaceManager.Instance.FinishingPositions)
             {
                 //highlight it if it is yours
                 LeaderboardItem item = Instantiate(leaderboardItemPrefab, leaderboardItemParent);
-                item.Initialize(playerPosition.Key,playerPosition.Value);
+                item.Initialize(playerPosition.Key,playerPosition.Value, position,(NetworkManager.Singleton.LocalClientId == playerPosition.Key));
+                position++;
             }
+            
         }
     }
 }

@@ -155,5 +155,10 @@ namespace Core.Player
             _accelInput = accelInput;
         }
 
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            Destroy(sphereRb.gameObject); //might not work if not the host
+        }
     }
 }

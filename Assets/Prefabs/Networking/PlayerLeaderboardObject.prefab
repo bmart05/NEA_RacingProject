@@ -447,7 +447,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 1, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3946375579773348469
 CanvasRenderer:
@@ -502,3 +502,5 @@ MonoBehaviour:
   racePositionText: {fileID: 5267751803514125074}
   playerNameText: {fileID: 2655345898310905120}
   trackTimeText: {fileID: 6271996902187411842}
+  itemPanel: {fileID: 5793609665700859554}
+  ownerColor: {r: 0.82641506, g: 0.5681928, b: 0, a: 1}

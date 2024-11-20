@@ -103,7 +103,7 @@ namespace Networking.Shared
                 Players = ActiveLobby?.Players;
                 JoinCode = joinCode;
                 
-                //await VivoxManager.Instance.JoinGroupChannel(JoinCode);
+                await VivoxManager.Instance.JoinGroupChannel(JoinCode);
                 
                 HostSingleton.Instance.StartCoroutine(HeartbeatLobby(15f));
             }
@@ -142,7 +142,7 @@ namespace Networking.Shared
                 _playerName = playerName;
                 JoinCode = joinCode;
 
-                //await VivoxManager.Instance.JoinGroupChannel(JoinCode);
+                await VivoxManager.Instance.JoinGroupChannel(JoinCode);
 
                 await ClientSingleton.Instance.GameManager.StartClientAsync(joinCode);
             }
@@ -181,7 +181,7 @@ namespace Networking.Shared
                 _playerName = playerName;
                 JoinCode = lobbyJoinCode;
 
-                //await VivoxManager.Instance.JoinGroupChannel(JoinCode);
+                await VivoxManager.Instance.JoinGroupChannel(JoinCode);
 
                 await ClientSingleton.Instance.GameManager.StartClientAsync(JoinCode);
             }

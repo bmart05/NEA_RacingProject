@@ -1,7 +1,10 @@
 ﻿using System;
 using Core.Player;
+using Networking.Shared;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Core.Position
 {
@@ -47,6 +50,19 @@ namespace Core.Position
         {
             gameUI.SetActive(false);
             finishUI.SetActive(true);
+        }
+
+        public void GoBackToLobby()
+        {
+            if (NetworkManager.Singleton.IsHost)
+            {
+                NetworkManager.Singleton.SceneManager.LoadScene("LobbyScene",LoadSceneMode.Single);
+            }
+        }
+
+        public async void LeaveLobby()
+        {
+            await LobbyManager.Instance.LeaveCurrentLobby();
         }
     }
 }
