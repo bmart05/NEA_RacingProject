@@ -55,6 +55,8 @@ namespace Networking.Shared
         public bool IsHost { get; private set; }
         public bool IsPrivate { get; private set; }
 
+        private string mapToLoad;
+
 
         private void Start()
         {
@@ -227,11 +229,16 @@ namespace Networking.Shared
             }
         }
 
+        public void SelectMap(string mapName)
+        {
+            mapToLoad = mapName;
+        }
+
         public async void StartGame()
         {
             await LockLobby(); //stops players from joining while in a game
             
-            NetworkManager.Singleton.SceneManager.LoadScene("GameScene",LoadSceneMode.Single); //update to involve map voting
+            NetworkManager.Singleton.SceneManager.LoadScene(mapToLoad,LoadSceneMode.Single); //update to involve map voting
         }
 
         public async Task DestroyCurrentLobby()

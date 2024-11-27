@@ -32,6 +32,7 @@ namespace Networking.Shared
 
         private bool _isLoggedIn;
         private bool _isMuted;
+        [SerializeField] private bool isEnabled;
         private string _currentChannelName;
 
         private void Start()
@@ -41,7 +42,7 @@ namespace Networking.Shared
 
         private async Task LoginAsync()
         {
-            if (_isLoggedIn)
+            if (_isLoggedIn || !isEnabled)
             {
                 return;
             }
@@ -58,7 +59,7 @@ namespace Networking.Shared
          
         public async Task JoinGroupChannel(string channelName)
         {
-            if (!_isLoggedIn)
+            if (!_isLoggedIn || !isEnabled)
             {
                 await LoginAsync();
             }

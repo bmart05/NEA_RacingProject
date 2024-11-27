@@ -5,7 +5,7 @@ using System.Linq;
 using Core.Player;
 using Core.Position;
 using Unity.Netcode;
-using UnityEditor.Rendering;
+
 using UnityEngine;
 
 namespace Core.Game
@@ -132,7 +132,7 @@ namespace Core.Game
             }
             else
             {
-                HasGameStarted.Value = true;
+                //HasGameStarted.Value = true;
             }
             foreach (var player in _playerObjects)
             {

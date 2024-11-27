@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Core.Game;
 using Input;
 using Unity.Netcode;
 using UnityEngine;
@@ -64,7 +65,10 @@ namespace Core.Player
 
         void Update()
         {
-            transform.position = sphereRb.transform.position;
+            if (!GameManager.Instance.HasGameStarted.Value)
+            {
+                transform.position = sphereRb.transform.position;
+            }
             if (!_canMove)
             {
                 _accelInput = 0;
@@ -89,6 +93,11 @@ namespace Core.Player
         }
         private void FixedUpdate()
         {
+
+            if (!IsOwner)
+            {
+                return;
+            }
             
             _isGrounded = Physics.Raycast(groundRayPoint.position, -transform.up, out RaycastHit hit ,1f, groundMask);
 
@@ -98,7 +107,7 @@ namespace Core.Player
                 transform.rotation = Quaternion.Lerp(transform.rotation,newRotation,0.1f);
             }
             
-            if (_isGrounded && IsOwner)
+            if (_isGrounded)
             {
                 sphereRb.linearDamping = groundDrag;
                 if (Mathf.Abs(_accelInput) > 0 && sphereRb.linearVelocity.magnitude <= maxSpeed)
