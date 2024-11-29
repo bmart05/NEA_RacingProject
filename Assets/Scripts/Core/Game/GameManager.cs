@@ -45,17 +45,10 @@ namespace Core.Game
         
         private int _playersLoadedIn;
         private int _playersFinishedCountdown;
-        
-        private void Start()
+
+        public override void OnNetworkSpawn()
         {
-            if (IsHost)
-            {
-                InitializeGame();
-            }
-            else
-            {
-                InitializeGame();
-            }
+            InitializeGame();
         }
 
         private void SpawnAllPlayers()
@@ -138,7 +131,7 @@ namespace Core.Game
                 {
                     RaceManager.Instance.InitializePlayer(player);
                 }
-                //player.SetCanMove(true);
+                player.SetCanMove(true);
             }
             RaceManager.Instance.SetStartingTime();
         }
