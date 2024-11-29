@@ -18,10 +18,12 @@ namespace UI
         [SerializeField] private TMP_Text joinCodeText;
         [SerializeField] private TMP_Text lobbyNameText;
         [SerializeField] private GameObject startButton;
+        [SerializeField] private GameObject mapPanel;
         
         private void Start()
         {
-            startButton.SetActive(true);
+            startButton.SetActive(false);
+            mapPanel.SetActive(LobbyManager.Instance.IsHost);
             RefreshList(LobbyManager.Instance.ActiveLobby);
             joinCodeText.text = LobbyManager.Instance.JoinCode;
             lobbyNameText.text = LobbyManager.Instance.LobbyName;

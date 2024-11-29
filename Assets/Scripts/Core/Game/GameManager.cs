@@ -65,11 +65,9 @@ namespace Core.Game
             foreach (var relayClientId in connectedClients.Keys)
             {
                 Transform startingPosition = RaceManager.Instance.GetStartingPosition(playerIndex);
-                Debug.Log(startingPosition.position);
                 CarPlayer playerObject = Instantiate(playerPrefab, startingPosition.position,startingPosition.rotation);
                 playerObject.NetworkObject.SpawnWithOwnership(relayClientId);
                 RaceManager.Instance.InitializePlayer(playerObject);
-                playerObject.SetCanMove(false);
                 _playerObjects.Add(playerObject);
                 playerIndex++;
             }
@@ -132,7 +130,7 @@ namespace Core.Game
             }
             else
             {
-                //HasGameStarted.Value = true;
+                HasGameStarted.Value = true;
             }
             foreach (var player in _playerObjects)
             {
@@ -140,7 +138,7 @@ namespace Core.Game
                 {
                     RaceManager.Instance.InitializePlayer(player);
                 }
-                player.SetCanMove(true);
+                //player.SetCanMove(true);
             }
             RaceManager.Instance.SetStartingTime();
         }
@@ -152,7 +150,7 @@ namespace Core.Game
             Debug.Log("Destroying players");
             foreach (var player in _playerObjects)
             {
-                Destroy(player.gameObject);
+                player.NetworkObject.Despawn(true);
             }
             HandleFinishGameClientRpc();
         }
