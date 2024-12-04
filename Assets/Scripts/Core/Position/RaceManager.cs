@@ -86,6 +86,10 @@ namespace Core.Position
             carPlayer.position.finishingTime = Time.realtimeSinceStartup - StartingTime;
             FinishingPositions.Add(carPlayer.OwnerClientId,carPlayer.position);
             playerObjects.Remove(carPlayer);
+            if (IsHost)
+            {
+                carPlayer.NetworkObject.Despawn(true);
+            }
         }
 
         private void CheckFinishedPlayers()
