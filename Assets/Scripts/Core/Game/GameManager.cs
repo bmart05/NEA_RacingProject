@@ -39,6 +39,8 @@ namespace Core.Game
 
         [SerializeField] private List<CarPlayer> _playerObjects;
 
+        [field: SerializeField] public CarPlayer localPlayerObject;
+
         public NetworkVariable<int> NumPlayers { get; private set; } = new NetworkVariable<int>();
         public NetworkVariable<bool> HasGameStarted{ get; private set; } = new NetworkVariable<bool>();
         public NetworkVariable<bool> HasGameFinished { get; private set; } = new NetworkVariable<bool>();
@@ -62,6 +64,11 @@ namespace Core.Game
                 playerObject.NetworkObject.SpawnWithOwnership(relayClientId);
                 RaceManager.Instance.InitializePlayer(playerObject);
                 _playerObjects.Add(playerObject);
+
+                if (relayClientId == NetworkManager.Singleton.LocalClientId)
+                {
+                    localPlayerObject = playerObject;
+                }
                 playerIndex++;
             }
             Debug.Log("Spawned all players");
@@ -120,6 +127,13 @@ namespace Core.Game
             if (!IsHost)
             {
                 _playerObjects = FindObjectsOfType<CarPlayer>().ToList();
+                foreach (var player in  _playerObjects)
+                {
+                    if (player.OwnerClientId == NetworkManager.Singleton.LocalClientId)
+                    {
+                        localPlayerObject = player;
+                    }
+                }
             }
             else
             {

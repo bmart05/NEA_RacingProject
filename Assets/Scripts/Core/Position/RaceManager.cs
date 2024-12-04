@@ -86,7 +86,7 @@ namespace Core.Position
             carPlayer.position.finishingTime = Time.realtimeSinceStartup - StartingTime;
             FinishingPositions.Add(carPlayer.OwnerClientId,carPlayer.position);
             playerObjects.Remove(carPlayer);
-            if (IsHost)
+            if (IsHost && FinishingPositions.Count!=GameManager.Instance.NumPlayers.Value) //all players except the last to finish are destroyed
             {
                 carPlayer.NetworkObject.Despawn(true);
             }

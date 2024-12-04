@@ -5,6 +5,7 @@ using Core.Position;
 using Core.Position.Checkpoints;
 using Networking.Host;
 using Networking.Shared;
+using TMPro;
 using Unity.Collections;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -16,9 +17,10 @@ namespace Core.Player
     public class CarPlayer : NetworkBehaviour
     {
         [Header("References")]
-        [SerializeField] private CinemachineVirtualCamera carCamera;
+        [SerializeField] public CinemachineVirtualCamera carCamera;
         [SerializeField] private CarController carController;
         [SerializeField] private Animator carModelAnimator;
+        [SerializeField] private TMP_Text playerNameText;
 
         [Header("Settings")] 
         [SerializeField] private int ownerCamPriority = 20;
@@ -37,6 +39,7 @@ namespace Core.Player
             {
                 //network player will have the highest priority camera so it will always be the one selected
                 carCamera.Priority = ownerCamPriority; 
+                playerNameText.gameObject.SetActive(false);
             }
 
             if (IsHost)
@@ -50,6 +53,7 @@ namespace Core.Player
         private void Start()
         {
             position.playerName = PlayerName.Value.ToString();
+            playerNameText.text = PlayerName.Value.ToString();
         }
 
         private void Update()
@@ -59,6 +63,7 @@ namespace Core.Player
             {
                 RaceUI.Instance.UpdatePositionText(position);
             }
+            
         }
 
         public void SetCanMove(bool value)
