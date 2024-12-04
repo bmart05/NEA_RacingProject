@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapName: Mountains
   sceneName: MountainsTrack
-  mapImage: {fileID: 21300000, guid: 53f2780b6b3cdca41ba891c236276cc8, type: 3}
+  mapImage: {fileID: 21300000, guid: 04e452542dc51c5449d753b715aa79e3, type: 3}

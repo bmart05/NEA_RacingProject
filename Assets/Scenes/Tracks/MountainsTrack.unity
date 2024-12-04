@@ -400,6 +400,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -880,6 +885,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -2563,6 +2573,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (20)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -4161,6 +4176,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (11)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -4501,6 +4521,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7903471838977439711, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6257,6 +6282,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -7763,6 +7793,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -8310,6 +8345,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4180264223406424534, guid: 697bce980b2fe9b4a960280f1bddf0bd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9645,6 +9685,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (18)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -10895,6 +10940,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -12070,6 +12120,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (21)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -13415,6 +13470,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (22)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -14839,6 +14899,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -16256,6 +16321,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -16905,6 +16975,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -18081,6 +18156,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -20132,6 +20212,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -20242,6 +20327,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -21897,6 +21987,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -22007,6 +22102,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -23348,6 +23448,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -25171,6 +25276,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -26420,6 +26530,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
@@ -27671,6 +27786,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
       propertyPath: m_Mesh
@@ -27980,6 +28100,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Checkpoint (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2634957616238104676, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2896263722092851476, guid: 1d37d30862fb6cc4a8f8d5e18fb3a5ad,
         type: 3}
