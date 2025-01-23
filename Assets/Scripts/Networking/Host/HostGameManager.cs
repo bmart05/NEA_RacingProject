@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Cars;
 using Networking.Server;
 using Networking.Shared;
 using UI;
@@ -19,7 +20,7 @@ using UnityEngine.SceneManagement;
 
 namespace Networking.Host
 {
-    public class HostGameManager
+    public class HostGameManager : IDisposable
     {
         private const int MaxConnections = 16;
 
@@ -62,7 +63,8 @@ namespace Networking.Host
             UserData userData = new UserData()
             {
                 userName = PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"),
-                userAuthId = AuthenticationService.Instance.PlayerId
+                userAuthId = AuthenticationService.Instance.PlayerId,
+                carModelName = PlayerPrefs.GetString(ModelPickerUI.PlayerPrefsKey, "Race Car")
             };
             string payload = JsonUtility.ToJson(userData);
             byte[] payloadByte = Encoding.UTF8.GetBytes(payload);
@@ -71,6 +73,17 @@ namespace Networking.Host
             NetworkManager.Singleton.StartHost();
             
             NetworkManager.Singleton.SceneManager.LoadScene("LobbyScene", LoadSceneMode.Single);
+        }
+
+        public void Dispose()
+        {
+            Shutdown();
+        }
+
+        public void Shutdown()
+        {
+            NetworkServer?.Dispose();
+            
         }
     }
 }

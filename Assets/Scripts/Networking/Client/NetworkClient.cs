@@ -1,11 +1,12 @@
-﻿using Networking.Shared;
+﻿using System;
+using Networking.Shared;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Networking.Client
 {
-    public class NetworkClient
+    public class NetworkClient : IDisposable
     {
         private NetworkManager _manager;
 
@@ -33,6 +34,14 @@ namespace Networking.Client
             if (_manager.IsConnectedClient)
             {
                 _manager.Shutdown();
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_manager != null)
+            {
+                _manager.OnClientDisconnectCallback -= OnClientDisconnect;
             }
         }
     }

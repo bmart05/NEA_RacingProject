@@ -62,7 +62,14 @@ namespace Core.Position
 
         public async void LeaveLobby()
         {
-            await LobbyManager.Instance.LeaveCurrentLobby();
+            if (NetworkManager.Singleton.IsHost)
+            {
+                await LobbyManager.Instance.DestroyCurrentLobby();
+            }
+            else
+            {
+                await LobbyManager.Instance.LeaveCurrentLobby();
+            }
         }
     }
 }

@@ -363,6 +363,15 @@ namespace Networking.Shared
             {
                 ActiveLobby = null;
                 await VivoxManager.Instance.LeaveCurrentChannel();
+
+                if (IsHost)
+                {
+                    HostSingleton.Instance.GameManager.Shutdown();
+                }
+                else
+                {
+                    ClientSingleton.Instance.GameManager.Shutdown();
+                }
                 SceneManager.LoadScene("MainMenu");
             }
         }

@@ -16,8 +16,8 @@ namespace Core.Player
         [SerializeField] private Rigidbody sphereRb;
         [SerializeField] private Transform groundRayPoint;
         [SerializeField] private LayerMask groundMask;
-        [SerializeField] private Transform leftWheelTransform;
-        [SerializeField] private Transform rightWheelTransform;
+        //[SerializeField] private Transform leftWheelTransform;
+        //[SerializeField] private Transform rightWheelTransform;
         [SerializeField] private NetworkTransform _networkTransform;
 
         [Header("Settings")] 
@@ -96,8 +96,8 @@ namespace Core.Player
                 _speed = _accelInput * reverseAccel * 1000f;
             }
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f,_turnInput*_accelInput*turnSpeed*Time.deltaTime, 0f));
-            leftWheelTransform.localRotation = Quaternion.Lerp(leftWheelTransform.localRotation, Quaternion.Euler(leftWheelTransform.localRotation.x,(_turnInput * maxWheelRotation), leftWheelTransform.localRotation.z),0.05f);
-            rightWheelTransform.localRotation = Quaternion.Lerp(rightWheelTransform.localRotation, Quaternion.Euler(rightWheelTransform.localRotation.x,(_turnInput * maxWheelRotation), rightWheelTransform.localRotation.z),0.05f);
+            //leftWheelTransform.localRotation = Quaternion.Lerp(leftWheelTransform.localRotation, Quaternion.Euler(leftWheelTransform.localRotation.x,(_turnInput * maxWheelRotation), leftWheelTransform.localRotation.z),0.05f);
+            //rightWheelTransform.localRotation = Quaternion.Lerp(rightWheelTransform.localRotation, Quaternion.Euler(rightWheelTransform.localRotation.x,(_turnInput * maxWheelRotation), rightWheelTransform.localRotation.z),0.05f);
         }
         private void FixedUpdate()
         {

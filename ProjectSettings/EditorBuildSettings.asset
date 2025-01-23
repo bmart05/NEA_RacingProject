@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tracks/MountainsTrack.unity
     guid: a83c853c1000d894384322d4b5986f4a
+  - enabled: 1
+    path: Assets/Scenes/Tracks/Snake Pass.unity
+    guid: a12bcce3880000d4b8f407d629f9c4c4
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

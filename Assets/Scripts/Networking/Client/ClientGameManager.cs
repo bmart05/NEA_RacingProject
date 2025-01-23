@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Cars;
 using Networking.Shared;
 using UI;
 using Unity.Netcode;
@@ -16,7 +17,7 @@ using UnityEngine.SceneManagement;
 
 namespace Networking.Client
 {
-    public class ClientGameManager
+    public class ClientGameManager : IDisposable
     {
         private const string MenuSceneName = "MainMenu";
         private JoinAllocation _joinAllocation;
@@ -58,7 +59,8 @@ namespace Networking.Client
             UserData userData = new UserData()
             {
                 userName = PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"),
-                userAuthId = AuthenticationService.Instance.PlayerId
+                userAuthId = AuthenticationService.Instance.PlayerId,
+                carModelName = PlayerPrefs.GetString(ModelPickerUI.PlayerPrefsKey,"Race Car")
             };
             string payload = JsonUtility.ToJson(userData);
             byte[] payloadByte = Encoding.UTF8.GetBytes(payload);
@@ -70,6 +72,20 @@ namespace Networking.Client
         public void GoToMenu()
         {
             SceneManager.LoadScene(MenuSceneName);
+        }
+
+        public void Dispose()
+        {
+            Shutdown();
+        }
+
+        public void Shutdown()
+        {
+            _networkClient?.Dispose();
+            if (NetworkManager.Singleton.IsListening)
+            {
+                NetworkManager.Singleton.Shutdown();
+            }
         }
     }
 }

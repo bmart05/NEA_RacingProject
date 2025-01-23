@@ -5,5 +5,6 @@
     {
         public string userName;
         public string userAuthId;
+        public string carModelName;
     }
 }

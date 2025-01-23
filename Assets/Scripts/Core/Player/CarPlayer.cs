@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using Cinemachine;
+using Core.Cars;
+using Core.Game;
 using Core.Position;
 using Core.Position.Checkpoints;
 using Networking.Host;
@@ -21,7 +23,7 @@ namespace Core.Player
         [SerializeField] private CarController carController;
         [SerializeField] private Animator carModelAnimator;
         [SerializeField] private TMP_Text playerNameText;
-
+        [SerializeField] private Transform playerModelParent;
         [Header("Settings")] 
         [SerializeField] private int ownerCamPriority = 20;
         [SerializeField] private float stunTime = 1.5f;
@@ -32,14 +34,18 @@ namespace Core.Player
 
         public NetworkVariable<FixedString32Bytes> PlayerName { get; private set; } =
             new NetworkVariable<FixedString32Bytes>();
+        public NetworkVariable<FixedString32Bytes> ModelName { get; private set; } =
+            new NetworkVariable<FixedString32Bytes>();
 
         public override void OnNetworkSpawn()
         {
+            CarModel model;
             if (IsOwner)
             {
                 //network player will have the highest priority camera so it will always be the one selected
                 carCamera.Priority = ownerCamPriority; 
                 playerNameText.gameObject.SetActive(false);
+                
             }
 
             if (IsHost)
@@ -47,11 +53,15 @@ namespace Core.Player
                 UserData userData =
                     HostSingleton.Instance.GameManager.NetworkServer.GetUserDataFromClientId(OwnerClientId);
                 PlayerName.Value = userData.userName;
+                ModelName.Value = userData.carModelName;
             }
         }
 
         private void Start()
         {
+            Debug.Log($"{PlayerName.Value}: {ModelName.Value}");
+            CarModel model = GlobalModels.Instance.GetModelByName(PlayerPrefs.GetString(ModelName.Value.ToString(), "Race Car"));
+            Instantiate(model.modelPrefab, playerModelParent);
             position.playerName = PlayerName.Value.ToString();
             playerNameText.text = PlayerName.Value.ToString();
         }
@@ -74,6 +84,17 @@ namespace Core.Player
         public void SetFinished()
         {
             hasFinished = true;
+            StartCoroutine(HandleFinish());
+        }
+
+        public IEnumerator HandleFinish()
+        {
+            //play finish animation
+            yield return new WaitForSecondsRealtime(3f);
+            if (IsHost)
+            {
+                NetworkObject.Despawn(true);
+            }
         }
 
         [ServerRpc(RequireOwnership = false)]

@@ -154,11 +154,6 @@ namespace Core.Game
         public void HandleFinishGameServerRpc()
         {
             HasGameFinished.Value = true;
-            Debug.Log("Destroying players");
-            foreach (var player in _playerObjects)
-            {
-                player.NetworkObject.Despawn(true);
-            }
             HandleFinishGameClientRpc();
         }
 

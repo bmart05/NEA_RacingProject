@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Networking.Shared;
 using Unity.Netcode;
 using Unity.Services.Lobbies.Http;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace Networking.Server
 {
-    public class NetworkServer
+    public class NetworkServer : IDisposable
     {
         private NetworkManager _manager;
 
@@ -48,6 +49,21 @@ namespace Networking.Server
             {
                 _clientIdToAuthId.Remove(clientId);
                 _authIdToUserData.Remove(authId);
+            }
+        }
+
+        public void Dispose()
+        {
+            if (_manager != null)
+            {
+                _manager.ConnectionApprovalCallback -= ApprovalCheck;
+                _manager.OnServerStarted -= OnNetworkReady;
+                _manager.OnClientDisconnectCallback -= OnClientDisconnect;
+
+                if (_manager.IsListening)
+                {
+                    _manager.Shutdown();
+                }
             }
         }
     }
