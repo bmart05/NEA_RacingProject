@@ -29,6 +29,11 @@ namespace UI
             }
 
             _isRefreshing = true;
+            //remove all previous lobby instances created
+            foreach (Transform child in lobbyItemParent)
+            {
+                Destroy(child.gameObject);
+            }
 
             var results = await LobbyManager.Instance.GetActiveLobbiesAsync();
 

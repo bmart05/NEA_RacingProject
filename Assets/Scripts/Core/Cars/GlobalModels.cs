@@ -35,10 +35,11 @@ namespace Core.Cars
             DontDestroyOnLoad(gameObject);
         }
 
-        public CarModel GetModelByName(string name)
+        public CarModel GetModelByName(string _name)
         {
-            CarModel model = models.Find(carModel => carModel.modelName == name);
-            Debug.Log($"{name} against {model.name}");
+            Debug.Log(_name);
+            CarModel model = models.Find(carModel => carModel.modelName == _name);
+            Debug.Log(model.modelName);
             return model;
         }
         

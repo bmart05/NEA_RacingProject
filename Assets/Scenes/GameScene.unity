@@ -8858,6 +8858,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CheckpointManager
       objectReference: {fileID: 0}
+    - target: {fileID: 511892709447165919, guid: cf598f92c4498794aa1d8219056d9d06,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2205243631423771761, guid: cf598f92c4498794aa1d8219056d9d06,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -9187,55 +9192,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1123461412105206588, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1123461412105206588, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1123461412105206588, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4180264223406424534, guid: 697bce980b2fe9b4a960280f1bddf0bd,
         type: 3}
       propertyPath: m_Name
       value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7537043385083070922, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7537043385083070922, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7537043385083070922, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7537043385083070922, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7537043385083070922, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8184709164052522769, guid: 697bce980b2fe9b4a960280f1bddf0bd,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0.00004440656
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

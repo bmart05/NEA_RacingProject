@@ -39,7 +39,6 @@ namespace Core.Player
 
         public override void OnNetworkSpawn()
         {
-            CarModel model;
             if (IsOwner)
             {
                 //network player will have the highest priority camera so it will always be the one selected
@@ -60,7 +59,7 @@ namespace Core.Player
         private void Start()
         {
             Debug.Log($"{PlayerName.Value}: {ModelName.Value}");
-            CarModel model = GlobalModels.Instance.GetModelByName(PlayerPrefs.GetString(ModelName.Value.ToString(), "Race Car"));
+            CarModel model = GlobalModels.Instance.GetModelByName(ModelName.Value.ToString());
             Instantiate(model.modelPrefab, playerModelParent);
             position.playerName = PlayerName.Value.ToString();
             playerNameText.text = PlayerName.Value.ToString();

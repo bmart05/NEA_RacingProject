@@ -19,6 +19,7 @@ namespace Core.Cars
 
         private void Start()
         {
+            //need to update this to show the model picked previously
             currentModel = GlobalModels.Instance.models[0];
             currentModelIndex = 0;
         }

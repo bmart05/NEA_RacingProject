@@ -33,7 +33,7 @@ namespace UI
 
         private void RefreshList(Lobby lobby)
         {
-            if (lobby.Players.Count > 1 && LobbyManager.Instance.IsHost)
+            if (lobby.Players.Count >= 1 && LobbyManager.Instance.IsHost)
             {
                 startButton.SetActive(true);
             }
