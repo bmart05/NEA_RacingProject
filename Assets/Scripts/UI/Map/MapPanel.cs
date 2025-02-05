@@ -19,11 +19,11 @@ namespace UI
             mapNameText.text = mapInfo.mapName;
         }
 
-        public void LoadMap()
+        public void SelectMap(LeaderboardMenu leaderboardMenu)
         {
-            SceneManager.LoadScene(mapInfo.sceneName);
+            leaderboardMenu.SelectMap(mapInfo);
         }
-
+        
         public void VoteMap()
         {
             LobbyManager.Instance.SelectMap(mapInfo.sceneName);

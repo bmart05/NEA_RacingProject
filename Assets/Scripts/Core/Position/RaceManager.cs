@@ -40,6 +40,7 @@ namespace Core.Position
         public List<Transform> startingPositions;
         public readonly Dictionary<ulong, RacePosition> FinishingPositions = new Dictionary<ulong, RacePosition>();
         public float StartingTime { get; private set; }
+        public float LocalFinishTime { get; private set; }
 
 
         private void Update()
@@ -83,6 +84,10 @@ namespace Core.Position
         public void FinishPlayer(CarPlayer carPlayer)
         {
             carPlayer.position.finishingTime = Time.realtimeSinceStartup - StartingTime;
+            if (carPlayer.IsOwner)
+            {
+                LocalFinishTime = carPlayer.position.finishingTime;
+            }
             FinishingPositions.Add(carPlayer.OwnerClientId,carPlayer.position);
             playerObjects.Remove(carPlayer);
             carPlayer.SetFinished();

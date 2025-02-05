@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Player;
 using Core.Position;
+using UI;
 using Unity.Netcode;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Core.Game
 {
@@ -161,6 +163,7 @@ namespace Core.Game
         private void HandleFinishGameClientRpc()
         {
             RaceUI.Instance.ShowFinishUI();
+            LeaderboardManager.SetNewScore(SceneManager.GetActiveScene().name,RaceManager.Instance.LocalFinishTime);
         }
     }
 }

@@ -33,5 +33,17 @@ namespace UI
                 itemPanel.color = ownerColor;
             }
         }
+        public void Initialize(int rank, string playerName, float time,bool isMine)
+        {
+            racePositionText.text = $"{rank.ToString()}.";
+            playerNameText.text = playerName;
+            TimeSpan timeSpan = TimeSpan.FromSeconds(time);
+            trackTimeText.text = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}:{(timeSpan.Milliseconds/10):00}";
+
+            if (isMine)
+            {
+                itemPanel.color = ownerColor;
+            }
+        }
     }
 }
