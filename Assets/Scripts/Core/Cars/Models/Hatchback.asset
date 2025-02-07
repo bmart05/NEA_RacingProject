@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1231902cc5449f81ae8459d85a052a, type: 3}
   m_Name: Hatchback
   m_EditorClassIdentifier: 
-  modelName: 
-  modelImage: {fileID: 0}
-  modelPrefab: {fileID: 0}
+  modelName: Sports Hatchback
+  modelImage: {fileID: 21300000, guid: 484edc9d1cf731842853faba3c91a936, type: 3}
+  modelPrefab: {fileID: 919132149155446097, guid: 917710ffd5a18614d949d95610dfda27,
+    type: 3}

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7b7f6a2af2ed23145b22c6243d2c4a59
+timeCreated: 1454795644
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55908
+  packageName: Lake Race Track
+  packageVersion: 1.1
+  assetPath: Assets/race-track-lake/Materials/bridge_wall.mat
+  uploadId: 128633

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 455684150b306ad4a908bbf7e45fc2a5
+timeCreated: 1455229779
+licenseType: Store
+TextScriptImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55908
+  packageName: Lake Race Track
+  packageVersion: 1.1
+  assetPath: Assets/race-track-lake/readmore.txt
+  uploadId: 128633

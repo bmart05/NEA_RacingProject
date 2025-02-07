@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Trashmaster
   m_EditorClassIdentifier: 
   modelName: Trashmaster
-  modelImage: {fileID: 21300000, guid: 420ee0e93bf3d3a4f9a5dd8c756153ad, type: 3}
+  modelImage: {fileID: 21300000, guid: 7814beabceb3e4949afdb4505bb4b851, type: 3}
   modelPrefab: {fileID: 919132149155446097, guid: 0b18e3cdbbe4c83498912827c08e9315,
     type: 3}

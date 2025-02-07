@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ddeb9c868b38ca649aa1b203cf3cf534
+timeCreated: 1455138598
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55908
+  packageName: Lake Race Track
+  packageVersion: 1.1
+  assetPath: Assets/race-track-lake/Materials/tire.mat
+  uploadId: 128633

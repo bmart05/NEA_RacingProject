@@ -3011,8 +3011,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 315348978}
   m_HandleRect: {fileID: 315348977}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3458,7 +3458,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f4233a9796431f9f2cecfb5767eb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapInfo: {fileID: 11400000, guid: 191c4ff4112e6a04bb78bd3116584210, type: 2}
+  mapInfo: {fileID: 11400000, guid: 9a62ec92a87187940ae8405479869f83, type: 2}
   mapImage: {fileID: 1215796202}
   mapNameText: {fileID: 589278967}
 --- !u!114 &1824154325

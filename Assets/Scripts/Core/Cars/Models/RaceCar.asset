@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RaceCar
   m_EditorClassIdentifier: 
   modelName: Race Car
-  modelImage: {fileID: 21300000, guid: 420ee0e93bf3d3a4f9a5dd8c756153ad, type: 3}
+  modelImage: {fileID: 21300000, guid: 460be84d7639e0d44891b2277ab6f973, type: 3}
   modelPrefab: {fileID: 919132149155446097, guid: a10c4acf6b30fde4bbfc4842dfe2a89a,
     type: 3}

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d2ca2cdd71d6d1c4ba1373f41eccfa6c
+timeCreated: 1454797844
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55908
+  packageName: Lake Race Track
+  packageVersion: 1.1
+  assetPath: Assets/race-track-lake/Materials/cable-black.mat
+  uploadId: 128633

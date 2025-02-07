@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2e1336748f3797f4798cf9e588e2620f
+timeCreated: 1454796048
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55908
+  packageName: Lake Race Track
+  packageVersion: 1.1
+  assetPath: Assets/race-track-lake/race_track_lake.unity
+  uploadId: 128633

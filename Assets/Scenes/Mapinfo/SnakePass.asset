@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SnakePass
   m_EditorClassIdentifier: 
   mapName: Snake Pass
-  sceneName: Snake Pass
+  sceneName: SnakePass
   mapImage: {fileID: 21300000, guid: 420ee0e93bf3d3a4f9a5dd8c756153ad, type: 3}

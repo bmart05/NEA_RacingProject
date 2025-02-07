@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1231902cc5449f81ae8459d85a052a, type: 3}
   m_Name: Taxi
   m_EditorClassIdentifier: 
-  modelName: 
-  modelImage: {fileID: 0}
-  modelPrefab: {fileID: 0}
+  modelName: Taxi
+  modelImage: {fileID: 21300000, guid: bfc06118148a8e34ea57e88dffc03acd, type: 3}
+  modelPrefab: {fileID: 919132149155446097, guid: 6ebddd72be898d249a47c64f719e2960,
+    type: 3}

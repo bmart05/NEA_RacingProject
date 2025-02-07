@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be1231902cc5449f81ae8459d85a052a, type: 3}
   m_Name: SportsSedan
   m_EditorClassIdentifier: 
-  modelName: 
-  modelImage: {fileID: 0}
-  modelPrefab: {fileID: 0}
+  modelName: Sports Sedan
+  modelImage: {fileID: 21300000, guid: 0d4c938deaf340343a1a5f2af01f2ce4, type: 3}
+  modelPrefab: {fileID: 919132149155446097, guid: dfc956adc64cff24aa604f92d11593a3,
+    type: 3}

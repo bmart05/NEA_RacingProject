@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 75bb12a2ff3cdca4c8cbbea8f725e301
+timeCreated: 1454795644
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55908
+  packageName: Lake Race Track
+  packageVersion: 1.1
+  assetPath: Assets/race-track-lake/Materials/asphalt-dirt.mat
+  uploadId: 128633

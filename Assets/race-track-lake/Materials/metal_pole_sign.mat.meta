@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e8336ab7a3844f241994a4c4589fb2ef
+timeCreated: 1454882716
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55908
+  packageName: Lake Race Track
+  packageVersion: 1.1
+  assetPath: Assets/race-track-lake/Materials/metal_pole_sign.mat
+  uploadId: 128633
