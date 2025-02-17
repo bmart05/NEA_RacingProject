@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Game;
 using Core.Player;
 using Core.Position.Checkpoints;
+using UI;
 using Unity.Netcode;
 using UnityEngine;
 using Utilities;
@@ -87,6 +88,7 @@ namespace Core.Position
             if (carPlayer.IsOwner)
             {
                 LocalFinishTime = carPlayer.position.finishingTime;
+                Countdown.Instance.ShowFinish();
             }
             FinishingPositions.Add(carPlayer.OwnerClientId,carPlayer.position);
             playerObjects.Remove(carPlayer);

@@ -15,7 +15,7 @@ namespace Core.Game
     public class GameManager : NetworkBehaviour
     {
         private static GameManager _instance;
-
+    
         public static GameManager Instance
         {
             get
@@ -24,37 +24,37 @@ namespace Core.Game
                 {
                     return _instance;
                 }
-
+    
                 _instance = FindObjectOfType<GameManager>();
                 if (_instance == null)
                 {
                     return null;
                 }
-
+    
                 return _instance;
             }
         }
-
+    
         
         [Header("References")] 
         [SerializeField] private CarPlayer playerPrefab; //this should change for each player but is fine for now
-
+    
         [SerializeField] private List<CarPlayer> _playerObjects;
-
+    
         [field: SerializeField] public CarPlayer localPlayerObject;
-
+    
         public NetworkVariable<int> NumPlayers { get; private set; } = new NetworkVariable<int>();
         public NetworkVariable<bool> HasGameStarted{ get; private set; } = new NetworkVariable<bool>();
         public NetworkVariable<bool> HasGameFinished { get; private set; } = new NetworkVariable<bool>();
         
         private int _playersLoadedIn;
         private int _playersFinishedCountdown;
-
+    
         public override void OnNetworkSpawn()
         {
             InitializeGame();
         }
-
+    
         private void SpawnAllPlayers()
         {
             var connectedClients = NetworkManager.Singleton.ConnectedClients;
@@ -66,7 +66,7 @@ namespace Core.Game
                 playerObject.NetworkObject.SpawnWithOwnership(relayClientId);
                 RaceManager.Instance.InitializePlayer(playerObject);
                 _playerObjects.Add(playerObject);
-
+    
                 if (relayClientId == NetworkManager.Singleton.LocalClientId)
                 {
                     localPlayerObject = playerObject;
@@ -76,7 +76,7 @@ namespace Core.Game
             Debug.Log("Spawned all players");
             StartCountdownClientRpc(); //start countdown on all clients once they have spawned
         }
-
+    
         private void InitializeGame()
         {
             
@@ -86,13 +86,13 @@ namespace Core.Game
             }
             OnPlayerStartedGameServerRpc();
         }
-
+    
         [ClientRpc]
         private void StartCountdownClientRpc()
         {
             StartCoroutine(StartCountdown());
         }
-
+    
         [ServerRpc(RequireOwnership = false)]
         private void FinishCountdownServerRpc()
         {
@@ -101,14 +101,20 @@ namespace Core.Game
                                                          //from finishing at different times on different clients
             {
                 Debug.Log("Go!");
+                Countdown.Instance.ShowGo();
                 GameStartedClientRpc();
             }
         }
-
+    
         private IEnumerator StartCountdown()
         {
             Debug.Log("Started race countdown");
-            yield return new WaitForSecondsRealtime(3f);
+            Countdown.Instance.ShowThree();
+            yield return new WaitForSecondsRealtime(1f);
+            Countdown.Instance.ShowTwo();
+            yield return new WaitForSecondsRealtime(1f);
+            Countdown.Instance.ShowOne();
+            yield return new WaitForSecondsRealtime(1f);
             FinishCountdownServerRpc();
         }
         
@@ -121,7 +127,7 @@ namespace Core.Game
                 SpawnAllPlayers();
             }
         }
-
+    
         [ClientRpc]
         private void GameStartedClientRpc()
         {
@@ -158,7 +164,7 @@ namespace Core.Game
             HasGameFinished.Value = true;
             HandleFinishGameClientRpc();
         }
-
+    
         [ClientRpc]
         private void HandleFinishGameClientRpc()
         {

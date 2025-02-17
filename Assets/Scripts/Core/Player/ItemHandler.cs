@@ -18,6 +18,7 @@ namespace Core.Player
         [SerializeField] private Transform frontItemSpawnPosition;
         [SerializeField] private Transform backItemSpawnPosition;
         [SerializeField] private float fireRate = 1f;
+        [SerializeField] private AudioSource fxSource;
         
         [Header("Debug")]
         [SerializeField] private bool canPickup = true;
@@ -100,7 +101,9 @@ namespace Core.Player
             {
                 carController.HandleBoostServerRpc(itemTag.value1,itemTag.value2);
             }
-
+            
+            fxSource.PlayOneShot(currentItem.itemSoundEffect);
+            
             remainingUses--;
             previousFireTime = Time.time;
         }

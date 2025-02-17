@@ -11,6 +11,7 @@ namespace Core.Items
     {
         public string name;
         public Sprite itemImage;
+        public AudioClip itemSoundEffect;
         public int maxUses;
         public List<Tag> tags = new List<Tag>();
 
