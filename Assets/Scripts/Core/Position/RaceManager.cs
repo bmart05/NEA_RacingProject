@@ -44,6 +44,17 @@ namespace Core.Position
         public float LocalFinishTime { get; private set; }
 
 
+        public override void OnNetworkSpawn()
+        {
+            NetworkManager.OnClientDisconnectCallback += HandleClientDisconnect;
+        }
+
+        private void HandleClientDisconnect(ulong clientId)
+        {
+            var player = playerObjects.Find(player => player.OwnerClientId == clientId);
+            playerObjects.Remove(player); // this will stop the race manager from throwing errors
+        }
+
         private void Update()
         {
             SortPositions();
