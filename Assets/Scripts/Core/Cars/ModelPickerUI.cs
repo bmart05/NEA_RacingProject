@@ -20,8 +20,16 @@ namespace Core.Cars
         private void Start()
         {
             //need to update this to show the model picked previously
-            currentModel = GlobalModels.Instance.models[0];
-            currentModelIndex = 0;
+            
+            currentModelIndex = GlobalModels.Instance.models.FindIndex(model => model.modelName == PlayerPrefs.GetString(PlayerPrefsKey,"Race Car"));
+            Debug.Log(currentModelIndex);
+            if (currentModelIndex == -1)
+            {
+                currentModelIndex = 0;
+                Debug.Log("Failed to load player prefs");
+            }
+            currentModel = GlobalModels.Instance.models[currentModelIndex];
+            UpdateModel();
         }
 
         public void NextModel()

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Single Projectile
   itemImage: {fileID: 21300000, guid: 53f2780b6b3cdca41ba891c236276cc8, type: 3}
+  itemSoundEffect: {fileID: 8300000, guid: 6d83e1193e2e1374c85e922240316f8e, type: 3}
   maxUses: 1
   tags:
   - {fileID: 11400000, guid: d743a5167f9c9f94bbf7eccfa9a52800, type: 2}

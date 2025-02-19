@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Single Boost
   itemImage: {fileID: 21300000, guid: f055a6e779a2c9f498b0780e977a561d, type: 3}
+  itemSoundEffect: {fileID: 8300000, guid: 1efa68588617ce8479aff1840d0bc81a, type: 3}
   maxUses: 1
   tags:
   - {fileID: 11400000, guid: cea1bb1d5c325404d80a2795ad208d03, type: 2}
