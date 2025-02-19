@@ -19,6 +19,7 @@ namespace Core.Player
         [SerializeField] private Transform backItemSpawnPosition;
         [SerializeField] private float fireRate = 1f;
         [SerializeField] private AudioSource fxSource;
+        [SerializeField] private AudioClip collectionFx;
         
         [Header("Debug")]
         [SerializeField] private bool canPickup = true;
@@ -203,7 +204,8 @@ namespace Core.Player
             }
             canPickup = false;
 
-
+            fxSource.PlayOneShot(collectionFx);
+            
             currentItem = GlobalItems.Instance.GetRandomItem();
             ItemUI.Instance.UpdateUI(currentItem);
             remainingUses = currentItem.maxUses;

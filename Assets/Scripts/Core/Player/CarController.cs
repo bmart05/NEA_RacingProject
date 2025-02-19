@@ -19,16 +19,18 @@ namespace Core.Player
         //[SerializeField] private Transform leftWheelTransform;
         //[SerializeField] private Transform rightWheelTransform;
         [SerializeField] private NetworkTransform _networkTransform;
+        [SerializeField] private AudioClip accelerationFx;
+        [SerializeField] private AudioSource fxSource;
 
         [Header("Settings")] 
         [SerializeField] private float turnSpeed = 180f;
-
         [SerializeField] private float maxWheelRotation;
         [SerializeField] private float forwardAccel = 8f;
         [SerializeField] private float reverseAccel = 4f;
         [SerializeField] private float maxSpeed = 50f;
         [SerializeField] private float gravityForce = 10f;
         [SerializeField] private float groundDrag = 3f;
+        [SerializeField] private float speedPitchMultiplier = 0.1f;
 
         private float _accelInput;
         private float _turnInput;
@@ -63,6 +65,7 @@ namespace Core.Player
         private void Start()
         {
             sphereRb.transform.parent = null;
+            fxSource.clip = accelerationFx;
         }
 
         void Update()
@@ -95,6 +98,17 @@ namespace Core.Player
             {
                 _speed = _accelInput * reverseAccel * 1000f;
             }
+
+            if (Mathf.Abs(_accelInput) > 0) //plays engine sound effect if player is moving
+            {
+                fxSource.Play();
+                fxSource.pitch = _speed * speedPitchMultiplier;
+            }
+            else
+            {
+                fxSource.Stop();
+            }
+            
             transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f,_turnInput*_accelInput*turnSpeed*Time.deltaTime, 0f));
             //leftWheelTransform.localRotation = Quaternion.Lerp(leftWheelTransform.localRotation, Quaternion.Euler(leftWheelTransform.localRotation.x,(_turnInput * maxWheelRotation), leftWheelTransform.localRotation.z),0.05f);
             //rightWheelTransform.localRotation = Quaternion.Lerp(rightWheelTransform.localRotation, Quaternion.Euler(rightWheelTransform.localRotation.x,(_turnInput * maxWheelRotation), rightWheelTransform.localRotation.z),0.05f);

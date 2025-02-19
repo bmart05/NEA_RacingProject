@@ -23,6 +23,7 @@ namespace UI
             if (playerId == LobbyManager.Instance.PlayerId)
             {
                 muteButton.gameObject.SetActive(false);
+                kickButton.gameObject.SetActive(false);
             }
 
             lobbyNameText.text = playerName;

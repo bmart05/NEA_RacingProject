@@ -42,7 +42,7 @@ namespace Core.Game
         [SerializeField] private List<CarPlayer> _playerObjects;
     
         [field: SerializeField] public CarPlayer localPlayerObject;
-    
+        [SerializeField] private AudioSource musicSource;
         public NetworkVariable<int> NumPlayers { get; private set; } = new NetworkVariable<int>();
         public NetworkVariable<bool> HasGameStarted{ get; private set; } = new NetworkVariable<bool>();
         public NetworkVariable<bool> HasGameFinished { get; private set; } = new NetworkVariable<bool>();
@@ -156,6 +156,7 @@ namespace Core.Game
                 player.SetCanMove(true);
             }
             RaceManager.Instance.SetStartingTime();
+            musicSource.Play();
         }
         
         [ServerRpc]

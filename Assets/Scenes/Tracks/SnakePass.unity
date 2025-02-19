@@ -3050,11 +3050,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1951273855698179286, guid: 6f0ea5deadf2353469105f5c991fca0e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f0ea5deadf2353469105f5c991fca0e, type: 3}
 --- !u!4 &90599669 stripped
 Transform:
@@ -62141,6 +62137,16 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 3303478790
       objectReference: {fileID: 0}
+    - target: {fileID: 7441227715643748387, guid: 5d9f4e87ae2b0f34f8dbcfa845bf0f29,
+        type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 649f2881a3a36d64ca3894aa48fc576b, type: 3}
+    - target: {fileID: 7441227715643748387, guid: 5d9f4e87ae2b0f34f8dbcfa845bf0f29,
+        type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 649f2881a3a36d64ca3894aa48fc576b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

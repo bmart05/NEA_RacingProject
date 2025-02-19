@@ -28,6 +28,7 @@ namespace UI
         }
         
         [SerializeField] private TMP_Text countdownText;
+        [SerializeField] private AudioSource sfxSource;
 
         public void ShowThree()
         {
@@ -55,6 +56,7 @@ namespace UI
         {
             countdownText.gameObject.SetActive(true);
             countdownText.text = message;
+            sfxSource.Play();
             yield return new WaitForSecondsRealtime(1f);
             countdownText.gameObject.SetActive(false); //use dotween to do a fade
         }
