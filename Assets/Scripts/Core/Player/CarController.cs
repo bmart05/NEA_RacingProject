@@ -99,10 +99,10 @@ namespace Core.Player
                 _speed = _accelInput * reverseAccel * 1000f;
             }
 
-            if (Mathf.Abs(_accelInput) > 0) //plays engine sound effect if player is moving
+            if (sphereRb.linearVelocity.magnitude > 0) //plays engine sound effect if player is moving
             {
                 fxSource.Play();
-                fxSource.pitch = _speed * speedPitchMultiplier;
+                fxSource.pitch = sphereRb.linearVelocity.magnitude * speedPitchMultiplier;
             }
             else
             {

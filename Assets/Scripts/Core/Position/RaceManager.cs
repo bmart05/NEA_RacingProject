@@ -42,18 +42,8 @@ namespace Core.Position
         public readonly Dictionary<ulong, RacePosition> FinishingPositions = new Dictionary<ulong, RacePosition>();
         public float StartingTime { get; private set; }
         public float LocalFinishTime { get; private set; }
-
-
-        public override void OnNetworkSpawn()
-        {
-            NetworkManager.OnClientDisconnectCallback += HandleClientDisconnect;
-        }
-
-        private void HandleClientDisconnect(ulong clientId)
-        {
-            var player = playerObjects.Find(player => player.OwnerClientId == clientId);
-            playerObjects.Remove(player); // this will stop the race manager from throwing errors
-        }
+        public const float DNFTime = 9999f; //in seconds, just under 3 hours so it will never be reached
+        
 
         private void Update()
         {
@@ -105,6 +95,19 @@ namespace Core.Position
             playerObjects.Remove(carPlayer);
             carPlayer.SetFinished();
         }
+        
+        public void FinishPlayerDnf(CarPlayer carPlayer)
+        {
+            carPlayer.position.finishingTime = 5940f; //99mins and 99 seconds to make sure it will always be at the bottom of the list
+            if (carPlayer.IsOwner)
+            {
+                LocalFinishTime = 5940f; //same here
+                Countdown.Instance.ShowFinish();
+            }
+            FinishingPositions.Add(carPlayer.OwnerClientId,carPlayer.position);
+            playerObjects.Remove(carPlayer);
+            carPlayer.SetFinished();
+        }
 
         private void CheckFinishedPlayers()
         {
@@ -119,7 +122,12 @@ namespace Core.Position
 
             int total = FinishingPositions.Count;
             
-            //start countdown to finish if over half of the players have finished
+            // //start countdown to finish if over half of the players have finished
+            // if (total == Mathf.Round(GameManager.Instance.NumPlayers.Value * 0.5f)) //ensures it will never be a decimal value by rounding it
+            // {
+            //     GameManager.Instance.StartFinishCountdownServerRpc();
+            // }
+            
             if (total == GameManager.Instance.NumPlayers.Value)
             {
                 GameManager.Instance.HandleFinishGameServerRpc();

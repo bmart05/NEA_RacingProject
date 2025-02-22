@@ -25,8 +25,16 @@ namespace UI
 
             racePositionText.text = $"{finishingPlace.ToString()}.";
             playerNameText.text = _position.playerName;
-            TimeSpan timeSpan = TimeSpan.FromSeconds(position.finishingTime);
-            trackTimeText.text = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}:{(timeSpan.Milliseconds/10):00}";
+
+            if (position.finishingTime < RaceManager.DNFTime)
+            {
+                TimeSpan timeSpan = TimeSpan.FromSeconds(position.finishingTime);
+                trackTimeText.text = $"{timeSpan.Minutes:00}:{timeSpan.Seconds:00}:{(timeSpan.Milliseconds/10):00}";
+            }
+            else
+            {
+                trackTimeText.text = "DNF";
+            }
 
             if (isMine)
             {

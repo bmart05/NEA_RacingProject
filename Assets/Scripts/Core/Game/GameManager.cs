@@ -49,6 +49,7 @@ namespace Core.Game
         
         private int _playersLoadedIn;
         private int _playersFinishedCountdown;
+        private int _playersFinishedFinishCountdown;
     
         public override void OnNetworkSpawn()
         {
@@ -158,6 +159,38 @@ namespace Core.Game
             RaceManager.Instance.SetStartingTime();
             musicSource.Play();
         }
+
+        [ServerRpc]
+        public void StartFinishCountdownServerRpc()
+        {
+            StartFinishCountdownClientRpc();
+        }
+        
+        [ServerRpc(RequireOwnership = false)]
+        public void HandleFinishCountdownEndServerRpc()
+        {
+            _playersFinishedFinishCountdown++;
+            if (_playersFinishedFinishCountdown >= NumPlayers.Value)
+            {
+                HandleFinishGameServerRpc();
+            }
+        }
+        [ClientRpc]
+        public void StartFinishCountdownClientRpc()
+        {
+            StartCoroutine(StartFinishCountdown());
+        }
+        private IEnumerator StartFinishCountdown()
+        {
+            Debug.Log("Started countdown to finish");
+            yield return new WaitForSecondsRealtime(10f);
+            if (HasGameFinished.Value == false)
+            {
+                HandleFinishCountdownEndServerRpc();
+            }
+        }
+        
+        
         
         [ServerRpc]
         public void HandleFinishGameServerRpc()
@@ -169,6 +202,12 @@ namespace Core.Game
         [ClientRpc]
         private void HandleFinishGameClientRpc()
         {
+            //check if there are any players that havent finished
+            var players = FindObjectsByType<CarPlayer>(FindObjectsSortMode.None);
+            foreach (var player in players)
+            {
+                RaceManager.Instance.FinishPlayerDnf(player);
+            }
             RaceUI.Instance.ShowFinishUI();
             LeaderboardManager.SetNewScore(SceneManager.GetActiveScene().name,RaceManager.Instance.LocalFinishTime);
         }

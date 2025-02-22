@@ -55,7 +55,7 @@ namespace Networking.Host
 
             RelayServerData relayServerData = new RelayServerData(_allocation, "dtls");
             transport.SetRelayServerData(relayServerData);
-
+            
             await LobbyManager.Instance.CreateLobbyAsync(PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player"), MaxConnections,_joinCode);
 
             NetworkServer = new NetworkServer(NetworkManager.Singleton);

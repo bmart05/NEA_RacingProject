@@ -55,7 +55,7 @@ namespace Networking.Shared
         public bool IsHost { get; private set; }
         public bool IsPrivate { get; private set; }
 
-        private string mapToLoad;
+        private string mapToLoad = "TestMap"; //set a map by default to prevent errors being thrown
 
 
         private void Start()
@@ -179,9 +179,10 @@ namespace Networking.Shared
                 LobbyName = ActiveLobby.Name;
                 LobbyId = ActiveLobby.Id;
                 Players = ActiveLobby?.Players;
+                string joinCode = ActiveLobby.Data["JoinCode"].Value;
                 IsHost = false;
                 _playerName = playerName;
-                JoinCode = lobbyJoinCode;
+                JoinCode = joinCode;
 
                 await VivoxManager.Instance.JoinGroupChannel(JoinCode);
 

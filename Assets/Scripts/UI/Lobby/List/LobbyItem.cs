@@ -22,6 +22,8 @@ namespace UI
 
         public void Join()
         {
+            Debug.Log(_lobby.LobbyCode);
+            Debug.Log(_lobby.Id);
             _lobbiesList.JoinAsync(_lobby);
         }
     }

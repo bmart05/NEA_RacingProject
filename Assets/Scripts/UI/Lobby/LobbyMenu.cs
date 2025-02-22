@@ -19,13 +19,15 @@ namespace UI
         [SerializeField] private TMP_Text lobbyNameText;
         [SerializeField] private GameObject startButton;
         [SerializeField] private GameObject mapPanel;
-        
+        [SerializeField] private GameObject privateToggle;
+        [SerializeField] private GameObject joinCodePanel;
         private void Start()
         {
             startButton.SetActive(false);
             mapPanel.SetActive(LobbyManager.Instance.IsHost);
+            privateToggle.SetActive(LobbyManager.Instance.IsHost);
             RefreshList(LobbyManager.Instance.ActiveLobby);
-            joinCodeText.text = LobbyManager.Instance.JoinCode;
+            joinCodeText.text = LobbyManager.Instance.ActiveLobby.LobbyCode;
             lobbyNameText.text = LobbyManager.Instance.LobbyName;
             
             LobbyManager.OnLobbyUpdate += RefreshList;
@@ -36,6 +38,15 @@ namespace UI
             if (lobby.Players.Count >= 1 && LobbyManager.Instance.IsHost)
             {
                 startButton.SetActive(true);
+            }
+
+            if (lobby.IsPrivate)
+            {
+                joinCodePanel.SetActive(true);
+            }
+            else
+            {
+                joinCodePanel.SetActive(false);
             }
             
             foreach (Transform child in lobbyPlayerObjectParent)   
@@ -55,7 +66,21 @@ namespace UI
         {
             LobbyManager.Instance.StartGame();
         }
-        
+
+        public async void ToggleLobbyVisibility()
+        {
+            if (LobbyManager.Instance.IsPrivate)
+            {
+                await LobbyManager.Instance.SetLobbyToPublic();
+                joinCodePanel.SetActive(false);
+            }
+            else
+            {
+                await LobbyManager.Instance.SetLobbyToPrivate();
+                joinCodeText.text = LobbyManager.Instance.ActiveLobby.LobbyCode;
+                joinCodePanel.SetActive(true);
+            }
+        }
 
         public async void LeaveLobby()
         {
