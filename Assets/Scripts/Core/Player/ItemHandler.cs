@@ -89,7 +89,7 @@ namespace Core.Player
             if (currentItem.HasTag("Projectile", out itemTag))
             {
                 SpawnDummyProjectile(itemTag.clientGameObject,itemTag.value1);
-                HandleProjectileServerRpc();
+                HandleProjectileServerRpc(OwnerClientId);
             } 
             
             if (currentItem.HasTag("Obstacle", out itemTag))
@@ -110,7 +110,7 @@ namespace Core.Player
         }
 
         [ServerRpc]
-        public void HandleProjectileServerRpc()
+        public void HandleProjectileServerRpc(ulong clientId)
         {
             //parse item: stupid rpcs
             Tag tag = ParseTagFromItem(currentItem, "Projectile");
@@ -118,6 +118,7 @@ namespace Core.Player
             float projectileSpeed = tag.value1;
             
             GameObject projectile = Instantiate(serverProjectile, frontItemSpawnPosition.position, transform.rotation);
+            projectile.GetComponent<StunOnContact>().OwnerClientId = clientId; // stops the player from hitting themselves
             
             if (projectile.TryGetComponent(out Rigidbody rb))
             {

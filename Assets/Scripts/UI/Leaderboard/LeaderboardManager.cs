@@ -11,7 +11,7 @@ namespace UI
         public static void SetNewScore(string trackName,float time)
         {
             float highScore = PlayerPrefs.GetFloat($"{PlayerPrefsKey}_{trackName}", 0f);
-            if (time > highScore)
+            if (time < highScore)
             {
                 Debug.Log("Setting new high score");
                 PlayerPrefs.SetFloat($"{PlayerPrefsKey}_{trackName}",time); //update high score locally
@@ -22,7 +22,10 @@ namespace UI
         
         public static async void AddScoreToLeaderboard(string trackName, float time)
         {
-            var metadata = new LeaderboardMetadata { playerName = PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player") };
+            var metadata = new LeaderboardMetadata
+            {
+                playerName = PlayerPrefs.GetString(NameInput.PlayerNameKey, "Anonymous Player")
+            };
             AddPlayerScoreOptions options = new AddPlayerScoreOptions();
             options.Metadata = metadata;
             var playerEntry = await LeaderboardsService.Instance.AddPlayerScoreAsync(trackName, time, options);

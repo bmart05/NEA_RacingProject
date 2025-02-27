@@ -9293,7 +9293,7 @@ PrefabInstance:
     - target: {fileID: 7289256633370858273, guid: 13369cae3f6adbd4ebce2892ae20af40,
         type: 3}
       propertyPath: <NumLaps>k__BackingField
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7289256633370858273, guid: 13369cae3f6adbd4ebce2892ae20af40,
         type: 3}

@@ -26,5 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tracks/LakesMap.unity
     guid: afdadfe488663064bbdce311406454ca
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 0dea99ae2772ee2468fb5a40eb6c5370,
+      type: 3}
   m_UseUCBPForAssetBundles: 0

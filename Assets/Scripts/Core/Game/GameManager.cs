@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Player;
 using Core.Position;
+using Networking.Shared;
 using UI;
 using Unity.Netcode;
 
@@ -196,18 +197,13 @@ namespace Core.Game
         public void HandleFinishGameServerRpc()
         {
             HasGameFinished.Value = true;
+            LobbyManager.Instance.UnlockLobby();
             HandleFinishGameClientRpc();
         }
     
         [ClientRpc]
         private void HandleFinishGameClientRpc()
         {
-            //check if there are any players that havent finished
-            var players = FindObjectsByType<CarPlayer>(FindObjectsSortMode.None);
-            foreach (var player in players)
-            {
-                RaceManager.Instance.FinishPlayerDnf(player);
-            }
             RaceUI.Instance.ShowFinishUI();
             LeaderboardManager.SetNewScore(SceneManager.GetActiveScene().name,RaceManager.Instance.LocalFinishTime);
         }

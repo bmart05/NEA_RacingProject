@@ -25,7 +25,8 @@ namespace UI
             foreach (var value in _resolutions)
             {
                 string option = $"{value.width}x{value.height}";
-                if (value.width == Screen.currentResolution.width && value.height == Screen.currentResolution.height)
+                if (value.width == Screen.currentResolution.width 
+                    && value.height == Screen.currentResolution.height)
                 {
                     currentResolutionIndex = index;
                 }

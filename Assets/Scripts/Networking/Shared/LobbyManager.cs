@@ -331,7 +331,8 @@ namespace Networking.Shared
                 {
                     IsPrivate = true
                 };
-
+                
+                IsPrivate = true;
                 await Lobbies.Instance.UpdateLobbyAsync(LobbyId, options);
             }
             catch (LobbyServiceException e)
@@ -346,9 +347,10 @@ namespace Networking.Shared
             {
                 UpdateLobbyOptions options = new UpdateLobbyOptions()
                 {
-                    IsPrivate = false,
+                    IsPrivate = false
                 };
 
+                IsPrivate = false;
                 await Lobbies.Instance.UpdateLobbyAsync(LobbyId, options);
             }
             catch (LobbyServiceException e)
@@ -402,13 +404,13 @@ namespace Networking.Shared
             {
                 return;
             }
-
+            
+            IsPrivate = newLobby.IsPrivate;
             if (DidPlayersChange(ActiveLobby.Players, newLobby.Players))
             {
                 Debug.Log("Updated lobby");
                 ActiveLobby = newLobby;
                 Players = newLobby.Players;
-                IsPrivate = newLobby.IsPrivate;
 
                 if (Players.Exists(player => player.Id == PlayerId))
                 {

@@ -8,6 +8,7 @@ using Core.Position.Checkpoints;
 using Networking.Host;
 using Networking.Shared;
 using TMPro;
+using UI;
 using Unity.Collections;
 using Unity.Netcode;
 using Unity.VisualScripting;
@@ -51,8 +52,8 @@ namespace Core.Player
             {
                 UserData userData =
                     HostSingleton.Instance.GameManager.NetworkServer.GetUserDataFromClientId(OwnerClientId);
-                PlayerName.Value = userData.userName;
                 ModelName.Value = userData.carModelName;
+                PlayerName.Value = userData.userName;
             }
         }
 

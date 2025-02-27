@@ -1,12 +1,12 @@
 ﻿using System;
-using Core.Player;
+using Core.Position;
 using Networking.Shared;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Core.Position
+namespace UI
 {
     public class RaceUI : MonoBehaviour
     {

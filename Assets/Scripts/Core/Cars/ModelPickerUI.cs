@@ -21,7 +21,10 @@ namespace Core.Cars
         {
             //need to update this to show the model picked previously
             
-            currentModelIndex = GlobalModels.Instance.models.FindIndex(model => model.modelName == PlayerPrefs.GetString(PlayerPrefsKey,"Race Car"));
+            currentModelIndex = 
+                GlobalModels.Instance.models.FindIndex(
+                    model => model.modelName == PlayerPrefs.GetString(PlayerPrefsKey,"Race Car")
+                    );
             Debug.Log(currentModelIndex);
             if (currentModelIndex == -1)
             {
